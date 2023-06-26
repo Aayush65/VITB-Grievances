@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -10,8 +10,15 @@ const Login = () => {
         { name: "Password", value: pass, funct: setPass, placeholder: "Enter your Password" },
     ];
 
-    function handleSubmit() {
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault();
+        // confirm emails and pass
+        handleReset();
+    }
 
+    function handleReset() {
+        setEmail('');
+        setPass('');
     }
 
     return (
@@ -20,7 +27,7 @@ const Login = () => {
                 {loginDetails.map((detail, index) => (
                     <label key={index} className="flex flex-col gap-1 md:text-lg w-full">
                         {detail.name}
-                        <input className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px]" onChange={(e) => detail.funct(e.target.value)} type="email" placeholder={detail.placeholder} />
+                        <input className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => detail.funct(e.target.value)} type={detail.name.toLowerCase()} placeholder={detail.placeholder} />
                         <div className="flex justify-between">
                             <Link to="/register" className={`hover:underline self-end text-[13px] md:text-base ${detail.name === "Password" ? "": "hidden"}`}>Forgot Password?</Link>
                             <Link to="/register" className={`hover:underline self-start text-[13px] md:text-base ${detail.name === "Password" ? "": "hidden"}`}>Register Here</Link>
