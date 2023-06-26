@@ -1,14 +1,13 @@
-import {  useContext } from "react";
+import { useContext } from "react";
 import { AnonymousComplaint, Navbar, OngoingGrievances, SubmitGrievance } from "./components";
 import { context } from "./components/context";
 import { Navigate } from "react-router-dom";
 
 const MainSite = () => {
     const { currPortal } = useContext(context);
+    const accessAllowed = localStorage.getItem("accessToken") ? true: false;
 
-    const accessToken = false;
-
-    return accessToken ? (
+    return accessAllowed ? (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <Navbar />
             {

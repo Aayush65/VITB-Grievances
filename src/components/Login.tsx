@@ -9,15 +9,19 @@ const Login = () => {
     useEffect(() => {
         if (!isSubmit)
             return;
-        console.log(pass);
-        fetch(`http://localhost:3000/login/${regNo}/${pass}`, {
-            method: 'GET',
+        fetch("http://localhost:3000/login", {
+            method: 'POST',
+            body: JSON.stringify({ regNo, pass }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-            .then((response) => {console.log(response);response.json()})
-            .then((data) => console.log(data))
+            .then(async (response) => await response.json())
+            .then((data) => {
+                localStorage.setItem("accessToken", data.accessToken)
+                localStorage.setItem("refreshToken", data.refreshToken)
+                window.location.href = "/";
+            })
             .catch((err) => {
                 console.log("Error: " + err.message);
                 handleReset();
