@@ -1,6 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import encrypt from "../utils/encrypt";
 
 const Register = () => {
     const [name, setName] = useState<string>("");
@@ -41,7 +40,7 @@ const Register = () => {
         { name: "Repeat Password", value: repeatPass, type: "password", funct: setRepeatPass, placeholder: "Repeat your Password" }
     ];
 
-    async function handleSubmit(e: FormEvent) {
+    function handleSubmit(e: FormEvent) {
         e.preventDefault();
         if (!email || !pass || !repeatPass || !name || !regNo ) {
             alert("Please fill all the fields");
@@ -59,8 +58,6 @@ const Register = () => {
             handleReset();
             return;
         }
-        const newPass = await encrypt(pass)
-        setPass(newPass);
         setYear(Number(email.match(emailRegex)![2]));
         setIsDataValid(true);
     }

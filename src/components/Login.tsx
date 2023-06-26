@@ -1,6 +1,5 @@
 import { FormEvent, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import encrypt from "../utils/encrypt";
 
 const Login = () => {
     const [regNo, setRegNo] = useState("");
@@ -20,10 +19,10 @@ const Login = () => {
             .then((response) => {console.log(response);response.json()})
             .then((data) => console.log(data))
             .catch((err) => {
-                console.log(err.message);
+                console.log("Error: " + err.message);
+                handleReset();
             })
-            .finally(handleReset);
-
+        setIsSubmit(false);
     }, [isSubmit])
 
     const loginDetails = [
@@ -31,18 +30,17 @@ const Login = () => {
         { name: "Password", value: pass, funct: setPass, placeholder: "Enter your Password" },
     ];
 
-    async function handleSubmit(e: FormEvent) {
+    function handleSubmit(e: FormEvent) {
         e.preventDefault();
         if (!regNo || !pass)
             return;
-        const newPass = await encrypt(pass);
-        setPass(newPass);
         setIsSubmit(true);
     }
 
     function handleReset() {
         setRegNo('');
         setPass('');
+        setIsSubmit(false);
     }
 
     return (
