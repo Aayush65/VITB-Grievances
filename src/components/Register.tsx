@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import bcrypt from "bcrypt";
 
 const Register = () => {
     const [name, setName] = useState<string>("");
@@ -11,6 +12,7 @@ const Register = () => {
     const [isDataValid, setIsDataValid] = useState<boolean>(false);
     
     const navigate = useNavigate();
+
     // send user's registration data to the backend if all the data given is valid
     useEffect(() => {
         if (!isDataValid)
@@ -27,10 +29,7 @@ const Register = () => {
             .catch((err) => {
                 console.log(err.message);
             })
-            .finally(() => {
-                setIsDataValid(false);
-                navigate('/login', { replace: true });
-            });
+            .finally(() => navigate('/login', { replace: true }));
     }, [isDataValid])
 
     const registerDetails = [
@@ -41,7 +40,8 @@ const Register = () => {
         { name: "Repeat Password", value: repeatPass, type: "password", funct: setRepeatPass, placeholder: "Repeat your Password" }
     ];
 
-    function handleSubmit() {
+    async function handleSubmit(e: FormEvent) {
+        e.preventDefault();
         if (!email || !pass || !repeatPass || !name || !regNo ) {
             alert("Please fill all the fields");
             return;
@@ -58,8 +58,17 @@ const Register = () => {
             handleReset();
             return;
         }
+        const newPass = await encrypt(pass)
+        setPass(newPass);
         setYear(Number(email.match(emailRegex)![2]));
         setIsDataValid(true);
+    }
+
+    // encrypts the password
+    async function encrypt(password: string) {
+        const salt = bcrypt.genSaltSync(10);
+        const newPass = bcrypt.hash(password, salt);
+        return newPass;
     }
     
     function handleReset() {
@@ -71,12 +80,12 @@ const Register = () => {
     }
 
     return (
-        <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
+        <div className="w-screen min-h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
             <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center bg-[#3A98B9] py-10 px-7 md:p-10 md:pb-7 gap-5 text-[#FFF1DC] rounded-3xl w-full md:w-auto">
                 {registerDetails.map((detail, index) => (
                     <label key={index} className="flex flex-col gap-1 md:text-lg w-full">
                         {detail.name}
-                        <input className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => detail.funct(e.target.value)} type={detail.type} placeholder={detail.placeholder} />
+                        <input required className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => detail.funct(e.target.value)} type={detail.type} placeholder={detail.placeholder} />
                         <Link to="/login" className={`${detail.name === "Repeat Password" ? "" : "hidden"} hover:underline self-end text-[13px] md:text-base`}>Already a User?</Link>
                     </label>
                 ))}

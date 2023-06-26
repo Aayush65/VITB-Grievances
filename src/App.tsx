@@ -7,14 +7,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainSite />} />
+        <Route path="" element={<MainSite />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
       </Routes>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-      </Routes> 
-      <Routes>
-        <Route path="/register" element={<Register />} />
-      </Routes> 
     </Router>
   )
 }
