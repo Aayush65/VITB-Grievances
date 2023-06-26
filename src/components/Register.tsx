@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import bcrypt from "bcrypt";
+import encrypt from "../utils/encrypt";
 
 const Register = () => {
     const [name, setName] = useState<string>("");
@@ -19,17 +19,18 @@ const Register = () => {
             return;
         fetch('http://localhost:3000/register', {
             method: 'POST',
-            body: JSON.stringify({ name, regNo, email, year, pass }),
+            body: JSON.stringify({ name, regNo, year, email, pass }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
             .then((response) => response.json())
             .then((data) => console.log(data))
+            .then(() => navigate('/login', { replace: true }))
             .catch((err) => {
-                console.log(err.message);
-            })
-            .finally(() => navigate('/login', { replace: true }));
+                console.error(err.message);
+                handleReset();
+            });
     }, [isDataValid])
 
     const registerDetails = [
@@ -63,13 +64,6 @@ const Register = () => {
         setYear(Number(email.match(emailRegex)![2]));
         setIsDataValid(true);
     }
-
-    // encrypts the password
-    async function encrypt(password: string) {
-        const salt = bcrypt.genSaltSync(10);
-        const newPass = bcrypt.hash(password, salt);
-        return newPass;
-    }
     
     function handleReset() {
         setEmail("");
@@ -77,6 +71,7 @@ const Register = () => {
         setRepeatPass("");
         setName("");
         setRegNo("");
+        setIsDataValid(false);
     }
 
     return (

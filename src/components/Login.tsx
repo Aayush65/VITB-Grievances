@@ -1,23 +1,47 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import encrypt from "../utils/encrypt";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
+    const [regNo, setRegNo] = useState("");
     const [pass, setPass] = useState("");
+    const [isSubmit, setIsSubmit] = useState(false);
+
+    useEffect(() => {
+        if (!isSubmit)
+            return;
+        console.log(pass);
+        fetch(`http://localhost:3000/login/${regNo}/${pass}`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => {console.log(response);response.json()})
+            .then((data) => console.log(data))
+            .catch((err) => {
+                console.log(err.message);
+            })
+            .finally(handleReset);
+
+    }, [isSubmit])
 
     const loginDetails = [
-        { name: "Email", value: email, funct: setEmail, placeholder: "Enter your Email" },
+        { name: "Registration Number", value: regNo, funct: setRegNo, placeholder: "Enter your Registration No" },
         { name: "Password", value: pass, funct: setPass, placeholder: "Enter your Password" },
     ];
 
-    function handleSubmit(e: FormEvent) {
+    async function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        // confirm emails and pass
-        handleReset();
+        if (!regNo || !pass)
+            return;
+        const newPass = await encrypt(pass);
+        setPass(newPass);
+        setIsSubmit(true);
     }
 
     function handleReset() {
-        setEmail('');
+        setRegNo('');
         setPass('');
     }
 
