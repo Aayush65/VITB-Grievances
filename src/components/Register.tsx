@@ -1,15 +1,40 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [name, setName] = useState<string>("");
     const [regNo, setRegNo] = useState<string>("");
     const [email, setEmail] = useState<string>("");
+    const [year, setYear] = useState<number>(0);
     const [pass, setPass] = useState<string>("");
     const [repeatPass, setRepeatPass] = useState<string>("");
+    const [isDataValid, setIsDataValid] = useState<boolean>(false);
+    
+    const navigate = useNavigate();
+    // send user's registration data to the backend if all the data given is valid
+    useEffect(() => {
+        if (!isDataValid)
+            return;
+        fetch('http://localhost:3000/register', {
+            method: 'POST',
+            body: JSON.stringify({ name, regNo, email, year, pass }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((err) => {
+                console.log(err.message);
+            })
+            .finally(() => {
+                setIsDataValid(false);
+                navigate('/login', { replace: true });
+            });
+    }, [isDataValid])
 
     const registerDetails = [
-        { name: "Name", value: name, type: "text", funct: setName, placeholder: "Enter your Name" },
+        { name: "Name", value: name, type: "text", funct: setName, placeholder: "Enter your Full Name" },
         { name: "Registration Number", value: regNo, type: "text", funct: setRegNo, placeholder: "Enter your Reg. No." },
         { name: "Email", value: email, type: "email", funct: setEmail, placeholder: "Enter your Email" },
         { name: "Password", value: pass, type: "password", funct: setPass, placeholder: "Enter your Password" },
@@ -22,13 +47,19 @@ const Register = () => {
             return;
         }
         if (pass !== repeatPass) {
-            // handleReset();
             alert("Passwords do not match");
             setPass('');
             setRepeatPass('');
             return;
         }
-        handleReset();
+        const emailRegex = /^[a-zA-Z]+\.([a-zA-Z]*)?(20\d{2})?@vitbhopal\.ac\.in$/
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid VIT Bhopal email");
+            handleReset();
+            return;
+        }
+        setYear(Number(email.match(emailRegex)![2]));
+        setIsDataValid(true);
     }
     
     function handleReset() {
