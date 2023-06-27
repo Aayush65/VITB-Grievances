@@ -1,5 +1,37 @@
+import { useEffect, useContext, useState } from "react";
+import { context } from "./context";
+import { useNavigate } from "react-router-dom";
+
 
 const OngoingGrievances = () => {
+    // const [ complaints, setComplaints ] = useState([]);
+    const navigate = useNavigate();
+    const { regNo } = useContext(context);
+
+    useEffect(() => {
+        console.log(regNo);
+        fetch(`http://localhost:3000/grievances/20BCY10184`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.message && data.message === "Unauthorised Access") {
+                    localStorage.removeItem('accessToken');
+                    navigate('/login');
+                }
+                // setcomplaints
+                console.log(data)
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }, []);
+
+
     const complaints = [
         { 
             subject: "Subject",

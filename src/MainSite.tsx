@@ -4,7 +4,7 @@ import { context } from "./components/context";
 import { Navigate } from "react-router-dom";
 
 const MainSite = () => {
-    const { currPortal } = useContext(context);
+    const { currPortal, isLoggedIn } = useContext(context);
     const accessAllowed = localStorage.getItem("accessToken") ? true: false;
 
     return accessAllowed ? (

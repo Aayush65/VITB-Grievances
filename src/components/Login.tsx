@@ -18,8 +18,8 @@ const Login = () => {
         })
             .then(async (response) => await response.json())
             .then((data) => {
-                localStorage.setItem("accessToken", data.accessToken)
                 localStorage.setItem("refreshToken", data.refreshToken)
+                localStorage.setItem("accessToken", data.accessToken)
                 window.location.href = "/";
             })
             .catch((err) => {

@@ -1,12 +1,11 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { context } from "./context";
+
 
 const Register = () => {
-    const [name, setName] = useState<string>("");
-    const [regNo, setRegNo] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [year, setYear] = useState<number>(0);
-    const [pass, setPass] = useState<string>("");
+    const { name, setName, regNo, setRegNo, email, setEmail, year, setYear, pass, setPass } = useContext(context);
+    
     const [repeatPass, setRepeatPass] = useState<string>("");
     const [isDataValid, setIsDataValid] = useState<boolean>(false);
     
