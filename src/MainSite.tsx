@@ -1,12 +1,19 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AnonymousComplaint, Navbar, OngoingGrievances, SubmitGrievance } from "./components";
 import { context } from "./components/context";
 import { Navigate } from "react-router-dom";
+import { getAccessToken } from "./utils/getAccessToken";
 
 const MainSite = () => {
-    const { currPortal, accessToken } = useContext(context);
+    const { currPortal } = useContext(context);
 
-    return accessToken ? (
+    useEffect(() => {
+        if (!localStorage.length)
+            return;
+        getAccessToken();
+    }, [])
+
+    return localStorage.getItem("accessToken") ? (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <Navbar />
             {
@@ -18,7 +25,7 @@ const MainSite = () => {
             }
 
         </div>
-    ) : <Navigate to='./login' />
+    ) : <Navigate to='/login' />
 }
 
 export default MainSite

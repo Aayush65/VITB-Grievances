@@ -1,34 +1,33 @@
-import { useEffect, useContext, useState } from "react";
-import { context } from "./context";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getAccessToken } from "../utils/getAccessToken";
 
 
 const OngoingGrievances = () => {
     // const [ complaints, setComplaints ] = useState([]);
-    const navigate = useNavigate();
-    const { regNo } = useContext(context);
-
+    const regNo = localStorage.getItem('regNo');
+    
     useEffect(() => {
-        console.log(regNo);
-        fetch(`http://localhost:3000/grievances/20BCY10184`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('refreshToken')}`,
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.message && data.message === "Unauthorised Access") {
-                    localStorage.removeItem('refreshToken');
-                    navigate('/login');
+        async function fetchData() {
+            try {
+                const headers = {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                    'Content-type': 'application/json; charset=UTF-8',
                 }
-                // setcomplaints
-                console.log(data)
-            })
-            .catch((err) => {
+                const response = await fetch(`http://localhost:3000/grievances/${regNo}`, { method: 'GET', headers})
+                const data = await response.json();
+                if (data.message && data.message === "Unauthorised Access") {
+                    if (await getAccessToken())
+                        fetchData();
+                    return;
+                } else if (data) {
+                    console.log(data);
+                    // setcomplaints
+                }
+            } catch(err) {
                 console.error(err);
-            });
+            };
+        }
+        fetchData();
     }, []);
 
 
