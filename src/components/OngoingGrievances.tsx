@@ -20,7 +20,6 @@ const OngoingGrievances = () => {
                         fetchData();
                     return;
                 } else if (data) {
-                    console.log(data);
                     // setcomplaints
                 }
             } catch(err) {

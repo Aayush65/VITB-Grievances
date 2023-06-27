@@ -1,7 +1,6 @@
 
 export async function getAccessToken() {
     try {
-        console.log("Token Request Sent: ", localStorage.getItem("refreshToken"));
         const headers = {
             'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`,
             'Content-type': 'application/json; charset=UTF-8',
@@ -14,7 +13,6 @@ export async function getAccessToken() {
         }
         localStorage.setItem("refreshToken", data.refreshToken);
         localStorage.setItem("accessToken", data.accessToken);
-        console.log("Both Tokens Updated!!");
         localStorage.setItem("name", data.name);
         localStorage.setItem("regNo", data.regNo);
         localStorage.setItem("year", data.year);
