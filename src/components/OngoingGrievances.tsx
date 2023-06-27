@@ -13,14 +13,14 @@ const OngoingGrievances = () => {
         fetch(`http://localhost:3000/grievances/20BCY10184`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'Authorization': `Bearer ${localStorage.getItem('refreshToken')}`,
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
             .then((response) => response.json())
             .then((data) => {
                 if (data.message && data.message === "Unauthorised Access") {
-                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('refreshToken');
                     navigate('/login');
                 }
                 // setcomplaints

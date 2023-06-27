@@ -4,10 +4,9 @@ import { context } from "./components/context";
 import { Navigate } from "react-router-dom";
 
 const MainSite = () => {
-    const { currPortal, isLoggedIn } = useContext(context);
-    const accessAllowed = localStorage.getItem("accessToken") ? true: false;
+    const { currPortal, accessToken } = useContext(context);
 
-    return accessAllowed ? (
+    return accessToken ? (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <Navbar />
             {

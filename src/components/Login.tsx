@@ -1,10 +1,12 @@
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { context } from "./context";
 
 const Login = () => {
     const [regNo, setRegNo] = useState("");
     const [pass, setPass] = useState("");
     const [isSubmit, setIsSubmit] = useState(false);
+    const { setAccessToken } = useContext(context)
 
     useEffect(() => {
         if (!isSubmit)
@@ -18,8 +20,8 @@ const Login = () => {
         })
             .then(async (response) => await response.json())
             .then((data) => {
-                localStorage.setItem("refreshToken", data.refreshToken)
-                localStorage.setItem("accessToken", data.accessToken)
+                localStorage.setItem("refreshToken", data.refreshToken);
+                setAccessToken(data.accessToken);
                 window.location.href = "/";
             })
             .catch((err) => {
