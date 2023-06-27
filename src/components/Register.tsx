@@ -4,8 +4,9 @@ import { context } from "./context";
 
 
 const Register = () => {
-    const { name, setName, regNo, setRegNo, email, setEmail, year, setYear, pass, setPass } = useContext(context);
+    const { name, setName, regNo, setRegNo, email, setEmail, year, setYear } = useContext(context);
     
+    const [pass, setPass] = useState<string>("");
     const [repeatPass, setRepeatPass] = useState<string>("");
     const [isDataValid, setIsDataValid] = useState<boolean>(false);
     

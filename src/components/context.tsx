@@ -9,8 +9,6 @@ interface ContextData {
     setEmail: (newEmail: string) => void,
     year: number,
     setYear: (newYear: number) => void,
-    pass: string,
-    setPass: (newPass: string) => void,
     isLoggedIn: boolean,
     setIsLoggedIn: (newIsLoggedIn: boolean) => void,
     currPortal: string,
@@ -26,8 +24,6 @@ const context = createContext<ContextData>({
     setEmail: () => {},
     year: 0,
     setYear: () => {},
-    pass: "",
-    setPass: () => {},
     isLoggedIn: false,
     setIsLoggedIn: () => {},
     currPortal: "", 
@@ -35,25 +31,24 @@ const context = createContext<ContextData>({
 });
 
 const ContextProvider = ({ children }: { children: ReactNode }) => {
-
-    // useEffect(() => {
-    //     fetch("http://localhost:3000/", {
-    //         method: "GET",
-    //         headers: {
-    //             'Authorization': 'Bearer ' + localStorage.getItem('refreshToken')
-    //         }
-    //     })
-    // }, [])
-
+    
     const [name, setName] = useState<string>("");
     const [regNo, setRegNo] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [year, setYear] = useState<number>(0);
-    const [pass, setPass] = useState<string>("");
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [currPortal, setCurrPortal] = useState<string>("Ongoing Grievances");
-  
-    const contextValue = { name, setName, regNo, setRegNo, email, setEmail, year, setYear, pass, setPass, isLoggedIn, setIsLoggedIn, currPortal, setCurrPortal };
+    
+    useEffect(() => {
+        fetch("http://localhost:3000/accesstoken", {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('refreshToken')
+            }
+        })
+    }, [])
+    
+    const contextValue = { name, setName, regNo, setRegNo, email, setEmail, year, setYear, isLoggedIn, setIsLoggedIn, currPortal, setCurrPortal };
   
     return (
         <context.Provider value={contextValue}>
