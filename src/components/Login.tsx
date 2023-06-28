@@ -68,7 +68,6 @@ const Login = () => {
     function handleReset() {
         setRegNo('');
         setPass('');
-        setIsSubmit(false);
     }
 
     return !localStorage.getItem("accessToken") ? (

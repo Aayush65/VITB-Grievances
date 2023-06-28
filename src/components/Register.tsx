@@ -19,6 +19,7 @@ const Register = () => {
     useEffect(() => {
         if (!isDataValid)
             return;
+        setIsDataValid(false);
         fetch('http://localhost:3000/register', {
             method: 'POST',
             body: JSON.stringify({ name, regNo, year, email, pass }),
@@ -78,7 +79,6 @@ const Register = () => {
         setRepeatPass("");
         setName("");
         setRegNo("");
-        setIsDataValid(false);
     }
 
     return (

@@ -37,6 +37,7 @@ const SubmitGrievance = () => {
         }
         if (!isDataValid)
             return;
+        setIsDataValid(false);
         postData();
     }, [isDataValid])
     
@@ -58,6 +59,13 @@ const SubmitGrievance = () => {
         }
         // Limit the word limit of subject, complaint
         setIsDataValid(true);
+        handleReset();
+    }
+
+    function handleReset() {
+        setSubject("");
+        setComplaint("");
+        setRelatedDepts([]);
     }
 
     return (
@@ -69,7 +77,7 @@ const SubmitGrievance = () => {
             <h1 className="p-10 text-xl md:text-2xl font-semibold">What's bothering you?</h1>
             <form onSubmit={handleSubmit} className="flex flex-col justify-start bg-[#3A98B9] px-5 py-7 md:p-10 md:pb-7 gap-5 text-[#FFF1DC] rounded-3xl w-full md:w-auto">
                 <label className="flex gap-4 items-center text-sm md:text-base">
-                    Subject
+                    Subject 
                     <input type="text" placeholder="What's your issue?" className="w-full p-1 md:p-2 rounded-lg text-black" onChange={(e) => setSubject(e.target.value)} />
                 </label>
                 <label className="flex gap-4 items-center text-sm md:text-base">
