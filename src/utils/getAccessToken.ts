@@ -7,7 +7,7 @@ export async function getAccessToken() {
         }
         const response = await fetch("http://localhost:3000/accesstoken", { method: 'GET', headers });
         const data = await response.json();
-        if (!data || data.message){
+        if (data && data.message === "Unauthorised Access"){
             localStorage.clear();
             return false;
         }
@@ -20,7 +20,6 @@ export async function getAccessToken() {
         return true;
     } catch (err: unknown) {
         console.log(err);
-        localStorage.clear();
         return false;
     }
 }
