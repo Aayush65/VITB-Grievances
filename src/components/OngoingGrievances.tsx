@@ -20,7 +20,7 @@ const OngoingGrievances = () => {
                         fetchData();
                     return;
                 } else if (data) {
-                    setComplaints([...complaints, ...data]);
+                    setComplaints([{ subject: "Subject", status: "Status", complaint: "Complaint" }, ...data]);
                 }
             } catch(err) {
                 console.error(err);
@@ -32,7 +32,7 @@ const OngoingGrievances = () => {
 
     return (
         <div className="w-screen min-h-screen p-20 flex flex-col justify-center items-center">
-            <h1 className="p-10 text-2xl font-semibold">Your complaints</h1>
+            <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">Your complaints</h1>
             <div className="md:w-4/5 lg:w-2/3">
                 {complaints.map((complaint, index) => (
                     <div key={index} className={`flex ${index ? "": "font-bold"}`}>

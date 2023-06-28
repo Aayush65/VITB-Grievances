@@ -1,4 +1,5 @@
 import ServerError from "./ServerError";
+import NonExistant from "./NonExistant";
 import Login from "./Login";
 import Register from "./Register";
 import Navbar from "./Navbar";
@@ -8,6 +9,7 @@ import AnonymousComplaint from "./AnonymousComplaint";
 
 export {
     ServerError,
+    NonExistant,
     Login,
     Register,
     Navbar,
