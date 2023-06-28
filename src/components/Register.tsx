@@ -11,6 +11,8 @@ const Register = () => {
     const [year, setYear] = useState<number>(0);
     const [isDataValid, setIsDataValid] = useState<boolean>(false);
     
+    const [alert, setAlert] = useState<string>("");
+
     const navigate = useNavigate();
 
     // send user's registration data to the backend if all the data given is valid
@@ -31,7 +33,13 @@ const Register = () => {
                 console.error(err.message);
                 handleReset();
             });
-    }, [isDataValid])
+    }, [isDataValid]);
+
+    useEffect(() => {
+        if (!alert.length)
+            return;
+        setTimeout(() => setAlert(''), alert.length * 100);
+    }, [alert])
 
     const registerDetails = [
         { name: "Name", value: name, type: "text", funct: setName, placeholder: "Enter your Full Name" },
@@ -44,18 +52,18 @@ const Register = () => {
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
         if (!email || !pass || !repeatPass || !name || !regNo ) {
-            alert("Please fill all the fields");
+            setAlert("Please fill all the fields");
             return;
         }
         if (pass !== repeatPass) {
-            alert("Passwords do not match");
+            setAlert("Passwords do not match");
             setPass('');
             setRepeatPass('');
             return;
         }
         const emailRegex = /^[a-zA-Z]+\.([a-zA-Z]*)?(20\d{2})?@vitbhopal\.ac\.in$/
         if (!emailRegex.test(email)) {
-            alert("Please enter a valid VIT Bhopal email");
+            setAlert("Please enter a valid VIT Bhopal email");
             handleReset();
             return;
         }
@@ -74,15 +82,19 @@ const Register = () => {
 
     return (
         <div className="w-screen min-h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
+            <div className={`${alert ? "": "hidden"} absolute bg-red-500 text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
+                {alert}
+                <button className="font-black z-10" onClick={() => setAlert('')}>x</button>
+            </div>
             <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center bg-[#3A98B9] py-10 px-7 md:p-10 md:pb-7 gap-5 text-[#FFF1DC] rounded-3xl w-full md:w-auto">
                 {registerDetails.map((detail, index) => (
                     <label key={index} className="flex flex-col gap-1 md:text-lg w-full">
                         {detail.name}
-                        <input required className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => detail.funct(e.target.value)} type={detail.type} placeholder={detail.placeholder} />
+                        <input className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => detail.funct(e.target.value)} type={detail.type} placeholder={detail.placeholder} value={detail.value} />
                         <Link to="/login" className={`${detail.name === "Repeat Password" ? "" : "hidden"} hover:underline self-end text-[13px] md:text-base`}>Already a User?</Link>
                     </label>
                 ))}
-                <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg">Submit</button>
+                <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>
             </form>
         </div>
     )

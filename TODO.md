@@ -2,7 +2,7 @@
 2. Regex match for Reg No
 
 28th June
-1. Complete input
+1. Complete input page (submit grievances)
 2. Choose tags (depts)
 3. Plan Admin
 4. Signout
@@ -18,5 +18,6 @@
 
 
 -- Vaibhav
-1. Confirm Mail id (OTP)
+1. Confirm Mail id (OTP)    - nodeMailer
 2. Reminder mails (if any updates on status change on complaints).
+3. Dropdown (shows only those matching the written input).
