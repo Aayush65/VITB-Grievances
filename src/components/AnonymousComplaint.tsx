@@ -20,8 +20,7 @@ const AnonymousComplaint = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const status = 'pending';
-                const body = JSON.stringify({ subject, complaint, relatedDepts, status });
+                const body = JSON.stringify({ subject, complaint, relatedDepts });
                 const response = await fetch(`http://localhost:3000/grievances/`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
