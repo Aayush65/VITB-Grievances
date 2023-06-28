@@ -12,7 +12,7 @@ const context = createContext<ContextData>({
 
 const ContextProvider = ({ children }: { children: ReactNode }) => {
     
-    const [currPortal, setCurrPortal] = useState<string>("Ongoing Grievances");
+    const [currPortal, setCurrPortal] = useState<string>("");
   
     const contextValue = { currPortal, setCurrPortal };
   

@@ -17,7 +17,7 @@ const MainSite = () => {
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <Navbar />
             {
-                currPortal === "Ongoing Grievances" ? 
+                !currPortal || currPortal === "Ongoing Grievances" ? 
                 <OngoingGrievances /> : 
                 currPortal === "Submit a Grievance" ?
                 <SubmitGrievance /> :

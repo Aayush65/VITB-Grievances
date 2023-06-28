@@ -50,7 +50,8 @@ const Navbar = () => {
     function handleLinkChange(navLink: string) {
         if (window.location.pathname !== '/') 
             navigate('/');
-        setCurrPortal(navLink)
+        setCurrPortal(navLink);
+        setIsMenuShowing(false);
     }
 
     return (
@@ -62,7 +63,7 @@ const Navbar = () => {
                 <UserIcon isUserMenuShowing={isUserMenuShowing} setIsUserMenuShowing={setIsUserMenuShowing} />
             </div>
             <div className="md:hidden flex justify-start items-center w-full fixed py-5 pl-5 bg-[#3A98B9]">
-                <img src={isMenuShowing ? close : menu} alt="menu icon" className="w-5 h-5" onClick={() => setIsMenuShowing(!isMenuShowing)}/>
+                <img src={isMenuShowing ? close : menu} alt="menu icon" className="w-5 h-5 -scale-x-100" onClick={() => setIsMenuShowing(!isMenuShowing)}/>
                 <div className={`${isMenuShowing ? "flex" : "hidden"} rounded-xl p-5 bg-[#22667f] absolute top-11 flex flex-col justify-center items-start gap-2 text-[#FFF1DC] w-2/3`}>
                     {navLinks.map((navLink, index) => (
                         <div key={index} onClick={() => handleLinkChange(navLink)} className={`${currPortal === navLink ? "font-semibold" : ""} text-[#FFF1DC] whitespace-nowrap hover:cursor-pointer w-1/3 text-center`}>{navLink !== "Anonymous Complaints/Suggestions" ? navLink : "Anonymous Complaints"}</div>

@@ -20,8 +20,9 @@ const SubmitGrievance = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
+                const status = 'pending';
                 const regNo = localStorage.getItem("regNo");
-                const body = JSON.stringify({ regNo, subject, complaint, relatedDepts });
+                const body = JSON.stringify({ regNo, subject, complaint, relatedDepts, status });
                 const response = await fetch(`http://localhost:3000/grievances/`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
@@ -86,7 +87,7 @@ const SubmitGrievance = () => {
                 </label>
                 <label className="flex flex-col gap-2 text-sm md:text-base">
                     Describe your Issue
-                    <textarea className="w-full md:w-[600px] h-[200px] text-black p-2 md:p-3 rounded-xl" placeholder="Write your complaint here..." onChange={(e) => setComplaint(e.target.value)} value={complaint} />
+                    <textarea className="w-full md:w-[600px] h-[200px] text-black p-2 md:p-3 rounded-xl" placeholder="Write about your complaint here..." onChange={(e) => setComplaint(e.target.value)} value={complaint} />
                 </label>
                 <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg self-center active:">Submit</button>
             </form>
