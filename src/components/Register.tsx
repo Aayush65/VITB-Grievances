@@ -35,6 +35,7 @@ const Register = () => {
             });
     }, [isDataValid]);
 
+    // setTimeout for the alert message
     useEffect(() => {
         if (!alert.length)
             return;
@@ -82,7 +83,7 @@ const Register = () => {
 
     return (
         <div className="w-screen min-h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
-            <div className={`${alert ? "": "hidden"} absolute bg-red-500 text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
+            <div className={`${alert ? "": "hidden"} fixed bg-red-500 text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
                 {alert}
                 <button className="font-black z-10" onClick={() => setAlert('')}>x</button>
             </div>

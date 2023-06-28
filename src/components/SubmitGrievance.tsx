@@ -62,7 +62,7 @@ const SubmitGrievance = () => {
 
     return (
         <div className="min-h-screen px-3 py-16 md:py-10 flex flex-col justify-center items-center">
-            <div className={`${alert ? "": "hidden"} absolute bg-red-500 text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
+            <div className={`${alert ? "": "hidden"} fixed bg-red-500 text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
                 {alert}
                 <button className="font-black z-10" onClick={() => setAlert('')}>x</button>
             </div>
