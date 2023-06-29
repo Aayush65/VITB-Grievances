@@ -92,7 +92,7 @@ const Register = () => {
                     <label key={index} className="flex flex-col gap-1 md:text-lg w-full">
                         {detail.name}
                         <input className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => detail.funct(e.target.value)} type={detail.type} placeholder={detail.placeholder} value={detail.value} />
-                        <Link to="/login" className={`${detail.name === "Repeat Password" ? "" : "hidden"} hover:underline self-end text-[13px] md:text-base`}>Already a User?</Link>
+                        <Link to="/login" className={`${index === registerDetails.length - 1 ? "" : "hidden"} hover:underline self-end text-[13px] md:text-base`}>Already a User?</Link>
                     </label>
                 ))}
                 <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>

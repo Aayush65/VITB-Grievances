@@ -23,7 +23,7 @@ const Login = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.message && data.message === "Unauthorised Access") {
+                if (data.message && data.message === "Wrong Credentials") {
                     setAlert("Incorrect Email or Password");
                     localStorage.removeItem("accessToken");
                     handleReset();
@@ -83,7 +83,7 @@ const Login = () => {
                         <input className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => detail.funct(e.target.value)} type={detail.name.toLowerCase()} placeholder={detail.placeholder} value={detail.value} />
                         <div className="flex justify-between">
                             <Link to="/register" className={`hover:underline self-end text-[13px] md:text-base ${detail.name === "Password" ? "": "hidden"}`}>Forgot Password?</Link>
-                            <Link to="/register" className={`hover:underline self-start text-[13px] md:text-base ${detail.name === "Password" ? "": "hidden"}`}>Register Here</Link>
+                            <Link to="/register" className={`hover:underline self-start text-[13px] md:text-base ${index === loginDetails.length - 1 ? "": "hidden"}`}>Register Here</Link>
                         </div>
                     </label>
                 ))}

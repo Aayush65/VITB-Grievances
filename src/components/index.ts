@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import OngoingGrievances from "./OngoingGrievances";
 import SubmitGrievance from "./SubmitGrievance";
 import AnonymousComplaint from "./AnonymousComplaint";
+import ChangePassword from "./ChangePassword";
 
 export {
     ServerError,
@@ -15,5 +16,6 @@ export {
     Navbar,
     OngoingGrievances,
     SubmitGrievance,
-    AnonymousComplaint
+    AnonymousComplaint,
+    ChangePassword
 }
