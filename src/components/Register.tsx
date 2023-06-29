@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -81,7 +81,7 @@ const Register = () => {
         setRegNo("");
     }
 
-    return (
+    return !localStorage.getItem("accessToken") ? (
         <div className="w-screen min-h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
             <div className={`${alert ? "": "hidden"} fixed bg-red-500 text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
                 {alert}
@@ -98,7 +98,7 @@ const Register = () => {
                 <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>
             </form>
         </div>
-    )
+    ) : <Navigate to="/" />
 }
 
 export default Register;
