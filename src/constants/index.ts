@@ -1,0 +1,1 @@
+export const tags = ["Placement Cell", "Exam Cell", "Admission Office", "Student Cell"];
