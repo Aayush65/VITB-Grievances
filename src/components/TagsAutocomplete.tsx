@@ -20,7 +20,7 @@ const TagsAutoComplete = (props: TagsInput) => {
     return (
         <label className="flex gap-4 items-center text-sm md:text-base w-full md:w-[600px]">
             {name}
-            <Autocomplete multiple limitTags={3} options={tags} getOptionLabel={(dept) => dept} disableClearable onChange={(e, value) => setState([...value])} className="bg-white rounded-2xl w-full"
+            <Autocomplete multiple limitTags={3} options={tags} getOptionLabel={(dept) => dept} disableClearable onChange={(_, value) => setState([...value])} className="bg-white rounded-2xl w-full"
                 renderTags={(value, getTagProps) =>
                     value.map((option, index) => (
                         <Chip {...getTagProps({ index })} key={option} label={truncateTags(option)} className="flex justify-center items-center" />
