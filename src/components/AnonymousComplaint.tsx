@@ -84,7 +84,7 @@ const AnonymousComplaint = () => {
                     Describe your Issue
                     <textarea className="w-full md:w-[600px] h-[200px] text-black p-2 md:p-3 rounded-xl" placeholder="Write about your issue/suggestion here..." onChange={(e) => setComplaint(e.target.value)} value={complaint} />
                 </label>
-                <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg self-center active:">Submit</button>
+                <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg self-center active:scale-105">Submit</button>
             </form>
         </div>
     )
