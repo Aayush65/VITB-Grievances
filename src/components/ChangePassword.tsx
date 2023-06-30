@@ -27,11 +27,11 @@ const ChangePassword = () => {
                     if (await getAccessToken())
                         changePass();
                     return;
-                } else if (data.message) {
-                    setAlert([data.message, false]);
+                } else if (data.message === "Password Updated Successfully") {
+                    setAlert([data.message, true]);
                     handleReset();
                 } else if (data) {
-                    setAlert(["Password Changed Successfully", true]);
+                    setAlert([data.message, false]);
                     handleReset();
                 }
             } catch(err) {
