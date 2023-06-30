@@ -3,7 +3,7 @@ import { getAccessToken } from "../utils/getAccessToken";
 
 
 const OngoingGrievances = () => {
-    const [ complaints, setComplaints ] = useState([{ subject: "Subject", status: "Status", complaint: "Complaint" }]);
+    const [ complaints, setComplaints ] = useState([{ subject: "Subject", status: "Status", complaint: "Complaint", relatedDepts: ["Depts"] }]);
     const regNo = localStorage.getItem('regNo');
     
     useEffect(() => {
@@ -20,7 +20,7 @@ const OngoingGrievances = () => {
                         fetchData();
                     return;
                 } else if (data) {
-                    setComplaints([{ subject: "Subject", status: "Status", complaint: "Complaint" }, ...data]);
+                    setComplaints([{ subject: "Subject", status: "Status", complaint: "Complaint", relatedDepts: ["Depts"] }, ...data]);
                 }
             } catch(err) {
                 console.error(err);
@@ -39,6 +39,7 @@ const OngoingGrievances = () => {
                         <div className="border-black border-2 w-[5%] text-center">{index ? index: ""}</div>
                         <div className="border-black border-2 w-[30%]">{complaint.subject}</div>
                         <div className="border-black border-2 w-[50%]">{complaint.complaint}</div>
+                        <div className="border-black border-2 w-[50%]">{String(complaint.relatedDepts)}</div>
                         <div className="border-black border-2 w-[10%]">{complaint.status}</div>
                     </div>
                 ))}
