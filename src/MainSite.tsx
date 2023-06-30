@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { AnonymousComplaint, Navbar, OngoingGrievances, SubmitGrievance } from "./components";
+import { AnonymousComplaint, AdminNavbar, Navbar, OngoingGrievances, SubmitGrievance } from "./components";
 import { context } from "./components/context";
 import { Navigate } from "react-router-dom";
 import { getAccessToken } from "./utils/getAccessToken";
@@ -13,7 +13,17 @@ const MainSite = () => {
         getAccessToken();
     }, [])
 
-    return localStorage.getItem("accessToken") ? (
+    return !localStorage.getItem("accessToken") ? (
+        <Navigate to='/login' />
+    ) : localStorage.getItem("isSuperUser") ? (
+        <div className='w-full min-h-screen bg-[#EEEEEE]'>
+            <AdminNavbar />
+        </div>
+    ) : localStorage.getItem("empNo") ? (
+        <div className='w-full min-h-screen bg-[#EEEEEE]'>
+            <AdminNavbar />
+        </div>
+    ) : (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <Navbar />
             {
@@ -23,9 +33,8 @@ const MainSite = () => {
                 <SubmitGrievance /> :
                 <AnonymousComplaint />
             }
-
         </div>
-    ) : <Navigate to='/login' />
+    )
 }
 
 export default MainSite

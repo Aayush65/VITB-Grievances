@@ -16,7 +16,7 @@ const Login = () => {
             return;
         fetch("http://localhost:3000/login", {
             method: 'POST',
-            body: JSON.stringify({ regNo, pass }),
+            body: regNo.toLowerCase() === regNo.toUpperCase() ? JSON.stringify({ empNo: regNo, pass }) : JSON.stringify({ regNo, pass }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
@@ -28,12 +28,19 @@ const Login = () => {
                     localStorage.removeItem("accessToken");
                     handleReset();
                 } else if (data) {
+                    localStorage.clear();
                     localStorage.setItem("refreshToken", data.refreshToken);
                     localStorage.setItem("accessToken", data.accessToken);
                     localStorage.setItem("name", data.name);
-                    localStorage.setItem("regNo", data.regNo);
-                    localStorage.setItem("year", data.year);
                     localStorage.setItem("email", data.email);
+                    if (regNo.toLowerCase() === regNo.toUpperCase()) {
+                        localStorage.setItem("empNo", data.empNo);
+                        localStorage.setItem("dept", data.dept);
+                        localStorage.setItem("isSuperUser", data.isSuperUser);
+                    } else {
+                        localStorage.setItem("regNo", data.regNo);
+                        localStorage.setItem("year", data.year);
+                    }
                     navigate('/');
                 }
             })
