@@ -1,11 +1,12 @@
 import { useContext, useEffect } from "react";
-import { AnonymousComplaint, AdminNavbar, Navbar, OngoingGrievances, SubmitGrievance } from "./components";
+import { AnonymousComplaint, AdminNavbar, Navbar, OngoingGrievances, SubmitGrievance, Grievances, ModifyAdmins } from "./components";
 import { context } from "./components/context";
 import { Navigate } from "react-router-dom";
 import { getAccessToken } from "./utils/getAccessToken";
 
+
 const MainSite = () => {
-    const { currPortal } = useContext(context);
+    const { currPortal, currAdminPortal } = useContext(context);
 
     useEffect(() => {
         if (!localStorage.length)
@@ -15,9 +16,10 @@ const MainSite = () => {
 
     return !localStorage.getItem("accessToken") ? (
         <Navigate to='/login' />
-    ) : localStorage.getItem("isSuperUser") ? (
+    ) : localStorage.getItem("isSuperUser") === "true" ? (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <AdminNavbar />
+            { !currAdminPortal || currAdminPortal === "All Grievances" ? <Grievances /> : <ModifyAdmins /> }
         </div>
     ) : localStorage.getItem("empNo") ? (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>

@@ -8,6 +8,10 @@ import SubmitGrievance from "./SubmitGrievance";
 import AnonymousComplaint from "./AnonymousComplaint";
 import ChangePassword from "./ChangePassword";
 import AdminNavbar from "./AdminNavbar";
+import Grievances from "./Grievances";
+import ModifyAdmins from "./ModifyAdmins";
+
+
 export {
     ServerError,
     NonExistant,
@@ -18,5 +22,7 @@ export {
     OngoingGrievances,
     SubmitGrievance,
     AnonymousComplaint,
+    Grievances,
+    ModifyAdmins,
     ChangePassword
 }

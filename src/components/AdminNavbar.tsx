@@ -35,7 +35,7 @@ const AdminNavbar = () => {
     const { currAdminPortal, setCurrAdminPortal } = useContext(context);
     const navigate = useNavigate();
 
-    const navLinks = ["All Grievances", "Modify Admins"]
+    const navLinks = localStorage.getItem("isSuperUser") === "true" ? ["All Grievances", "Modify Admins"] : ["All Grievances"];
 
     useEffect(() => {
         if (isMenuShowing && isUserMenuShowing) 
