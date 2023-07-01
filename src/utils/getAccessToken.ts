@@ -2,7 +2,7 @@
 export async function getAccessToken() {
     try {
         const headers = {
-            'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`,
+            'Authorization': `Bearer ${localStorage.getItem('regNo') ? localStorage.getItem('regNo') : localStorage.getItem('empNo')} ${localStorage.getItem('refreshToken')}`,
             'Content-type': 'application/json; charset=UTF-8',
         }
         const response = await fetch("http://localhost:3000/accesstoken", { method: 'GET', headers });

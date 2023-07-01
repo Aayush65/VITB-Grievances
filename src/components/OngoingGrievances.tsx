@@ -10,7 +10,7 @@ const OngoingGrievances = () => {
         async function fetchData() {
             try {
                 const headers = {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('regNo')} ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
                 const response = await fetch(`http://localhost:3000/grievances/${regNo}`, { method: 'GET', headers})

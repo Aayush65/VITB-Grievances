@@ -17,7 +17,7 @@ const AnonymousComplaint = () => {
         async function postData() {
             try {
                 const headers = {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('regNo')} ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
                 const body = JSON.stringify({ subject, complaint, relatedDepts });
