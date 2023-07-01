@@ -21,15 +21,11 @@ const ChangePassword = () => {
                 }
                 let body;
                 if (localStorage.getItem("regNo")){
-                    console.log(localStorage.getItem("regNo"));
                     const regNo = localStorage.getItem("regNo");
                     body = JSON.stringify({ regNo, pass, newPass });
-                    console.log(body);
                 } else {
-                    console.log(localStorage.getItem("empNo"));
                     const empNo = localStorage.getItem("empNo");
                     body = JSON.stringify({ empNo, pass, newPass })
-                    console.log(body);
                 }
                 const response = await fetch(`http://localhost:3000/change-password`, { method: 'POST', headers, body })
                 const data = await response.json();
