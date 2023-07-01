@@ -20,7 +20,7 @@ const ChangePassword = () => {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
                 let body;
-                if (localStorage.getItem("regNo") !== "undefined"){
+                if (localStorage.getItem("regNo")){
                     console.log(localStorage.getItem("regNo"));
                     const regNo = localStorage.getItem("regNo");
                     body = JSON.stringify({ regNo, pass, newPass });

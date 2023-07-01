@@ -4,7 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 const Login = () => {
     const [pass, setPass] = useState("");
     const [isSubmit, setIsSubmit] = useState(false);
-    const [regNo, setRegNo] = useState("");
+    const [username, setUsername] = useState("");
 
     const [alert, setAlert] = useState<string>("");
 
@@ -16,7 +16,7 @@ const Login = () => {
             return;
         fetch("http://localhost:3000/login", {
             method: 'POST',
-            body: regNo.toLowerCase() === regNo.toUpperCase() ? JSON.stringify({ empNo: regNo, pass }) : JSON.stringify({ regNo, pass }),
+            body: username.toLowerCase() === username.toUpperCase() ? JSON.stringify({ empNo: username, pass }) : JSON.stringify({ regNo: username, pass }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
@@ -33,7 +33,7 @@ const Login = () => {
                     localStorage.setItem("accessToken", data.accessToken);
                     localStorage.setItem("name", data.name);
                     localStorage.setItem("email", data.email);
-                    if (regNo.toLowerCase() === regNo.toUpperCase()) {
+                    if (username.toLowerCase() === username.toUpperCase()) {
                         localStorage.setItem("empNo", data.empNo);
                         localStorage.setItem("dept", data.dept);
                         localStorage.setItem("isSuperUser", data.isSuperUser);
@@ -59,13 +59,13 @@ const Login = () => {
     }, [alert])
 
     const loginDetails = [
-        { name: "Registration Number", value: regNo, funct: setRegNo, placeholder: "Enter your Registration No" },
+        { name: " Registration/Employee Number", value: username, funct: setUsername, placeholder: "Enter your Registration/Employee No" },
         { name: "Password", value: pass, funct: setPass, placeholder: "Enter your Password" },
     ];
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        if (!regNo || !pass){
+        if (!username || !pass){
             setAlert("Please fill all the fields");
             return;
         }
@@ -73,7 +73,7 @@ const Login = () => {
     }
 
     function handleReset() {
-        setRegNo('');
+        setUsername('');
         setPass('');
     }
 
