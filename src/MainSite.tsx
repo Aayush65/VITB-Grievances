@@ -16,14 +16,10 @@ const MainSite = () => {
 
     return !localStorage.getItem("accessToken") ? (
         <Navigate to='/login' />
-    ) : localStorage.getItem("isSuperUser") === "true" ? (
+    ) : localStorage.getItem("isSuperUser") ? (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <AdminNavbar />
             { !currAdminPortal || currAdminPortal === "All Grievances" ? <Grievances /> : <ModifyAdmins /> }
-        </div>
-    ) : localStorage.getItem("empNo") ? (
-        <div className='w-full min-h-screen bg-[#EEEEEE]'>
-            <AdminNavbar />
         </div>
     ) : (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
