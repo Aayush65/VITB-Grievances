@@ -1,7 +1,7 @@
 import { FormEvent, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAccessToken } from "../utils/getAccessToken";
-import { Navbar } from ".";
+import { AdminNavbar, Navbar } from ".";
 
 const ChangePassword = () => {
     const [pass, setPass] = useState("");
@@ -19,8 +19,18 @@ const ChangePassword = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const regNo = localStorage.getItem("regNo");
-                const body = JSON.stringify({ regNo, pass, newPass })
+                let body;
+                if (localStorage.getItem("regNo") !== "undefined"){
+                    console.log(localStorage.getItem("regNo"));
+                    const regNo = localStorage.getItem("regNo");
+                    body = JSON.stringify({ regNo, pass, newPass });
+                    console.log(body);
+                } else {
+                    console.log(localStorage.getItem("empNo"));
+                    const empNo = localStorage.getItem("empNo");
+                    body = JSON.stringify({ empNo, pass, newPass })
+                    console.log(body);
+                }
                 const response = await fetch(`http://localhost:3000/change-password`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
@@ -81,7 +91,7 @@ const ChangePassword = () => {
 
     return (
         <div>
-            <Navbar />
+            {localStorage.getItem("isSuperUser") ? <AdminNavbar /> : <Navbar />}
             <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
                 <div className={`${alert[0] ? "": "hidden"} fixed ${alert[1] ? "bg-green-500" : "bg-red-500"} text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
                     {alert[0]}
