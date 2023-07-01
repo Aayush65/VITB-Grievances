@@ -14,13 +14,10 @@ export async function getAccessToken() {
         localStorage.setItem("refreshToken", data.refreshToken);
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("name", data.name);
-        localStorage.setItem("email", data.email);
         if (data.regNo) {
             localStorage.setItem("regNo", data.regNo);
-            localStorage.setItem("year", data.year);
         } else {
             localStorage.setItem("empNo", data.empNo);
-            localStorage.setItem("dept", data.dept);
         }
         return true;
     } catch (err: unknown) {

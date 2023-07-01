@@ -32,14 +32,11 @@ const Login = () => {
                     localStorage.setItem("refreshToken", data.refreshToken);
                     localStorage.setItem("accessToken", data.accessToken);
                     localStorage.setItem("name", data.name);
-                    localStorage.setItem("email", data.email);
                     if (username.toLowerCase() === username.toUpperCase()) {
                         localStorage.setItem("empNo", data.empNo);
-                        localStorage.setItem("dept", data.dept);
                         localStorage.setItem("isSuperUser", data.isSuperUser);
                     } else {
                         localStorage.setItem("regNo", data.regNo);
-                        localStorage.setItem("year", data.year);
                     }
                     navigate('/');
                 }
