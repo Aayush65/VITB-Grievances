@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { context } from "./context"
+import { context } from "../context"
 import { close, menu, user } from "../assets";
 import { useNavigate } from "react-router-dom";
 
@@ -8,8 +8,14 @@ const UserIcon = (props: { isUserMenuShowing: boolean, setIsUserMenuShowing: (me
     const { isUserMenuShowing, setIsUserMenuShowing } = props;
     const navigate = useNavigate();
     
+    const { setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
+
     function handleSignOut() {
         localStorage.clear();
+        setName("");
+        setEmpNo("");
+        setRegNo("");
+        setIsSuperUser(false);
         navigate("/login");
     }
 

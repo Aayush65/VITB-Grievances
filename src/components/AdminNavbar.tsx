@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { context } from "./context"
+import { context } from "../context"
 import { close, menu, user } from "../assets";
 import { useNavigate } from "react-router-dom";
 
@@ -32,10 +32,10 @@ const AdminNavbar = () => {
     const [ isMenuShowing, setIsMenuShowing ] = useState(false);
     const [ isUserMenuShowing, setIsUserMenuShowing ] = useState(false);
 
-    const { currAdminPortal, setCurrAdminPortal } = useContext(context);
+    const { isSuperUser, currAdminPortal, setCurrAdminPortal } = useContext(context);
     const navigate = useNavigate();
 
-    const navLinks = localStorage.getItem("isSuperUser") === "true" ? ["All Grievances", "Modify Admins"] : ["All Grievances"];
+    const navLinks = isSuperUser ? ["All Grievances", "Modify Admins"] : ["All Grievances"];
 
     useEffect(() => {
         if (isMenuShowing && isUserMenuShowing) 

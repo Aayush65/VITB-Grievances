@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { context } from "./context";
+import { context } from "../context";
 
 const ServerError = () => {
     const { setCurrPortal } = useContext(context);

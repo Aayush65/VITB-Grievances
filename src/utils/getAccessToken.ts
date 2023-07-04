@@ -13,15 +13,10 @@ export async function getAccessToken() {
         }
         localStorage.setItem("refreshToken", data.refreshToken);
         localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("name", data.name);
-        if (data.regNo) {
-            localStorage.setItem("regNo", data.regNo);
-        } else {
-            localStorage.setItem("empNo", data.empNo);
-        }
-        return true;
+        const values = { name: data.name, regNo: data.regNo || "", empNo: data.empNo || "", isSuperUser: data.isSuperUser || false };
+        return values;
     } catch (err: unknown) {
         console.log(err);
-        return false;
+        return null;
     }
 }

@@ -1,7 +1,8 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { getAccessToken } from "../utils/getAccessToken";
 import TagsAutoComplete from "./TagsAutocomplete";
 import { tags } from "../constants";
+import { context } from "../context";
 
 
 const AnonymousComplaint = () => {
@@ -12,6 +13,7 @@ const AnonymousComplaint = () => {
 
     const [alert, setAlert] = useState<[string, boolean]>(["", false]);
 
+    const { setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
     // posts the submitted details to the server
     useEffect(() => {
         async function postData() {
@@ -24,8 +26,14 @@ const AnonymousComplaint = () => {
                 const response = await fetch(`http://localhost:3000/grievances/`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
-                    if (await getAccessToken())
+                    const values = await getAccessToken();
+                    if (values) {
+                        setName(values.name);
+                        setEmpNo(values.empNo);
+                        setRegNo(values.regNo);
+                        setIsSuperUser(values.isSuperUser);
                         postData();
+                    }
                     return;
                 } else if (data) {
                     setAlert(["Anonymous Complaint Successful", true])

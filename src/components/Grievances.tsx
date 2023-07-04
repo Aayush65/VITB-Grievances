@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAccessToken } from "../utils/getAccessToken";
+import { context } from "../context";
 
 
 const Grievances = () => {
     const [ complaints, setComplaints ] = useState([{ regNo: "RegNo", subject: "Subject", status: "Status", complaint: "Complaint", relatedDepts: ["Depts"] }]);
     
+    const { setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -15,8 +18,14 @@ const Grievances = () => {
                 const response = await fetch(`http://localhost:3000/grievances`, { method: 'GET', headers});
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
-                    if (await getAccessToken())
+                    const values = await getAccessToken();
+                    if (values) {
+                        setName(values.name);
+                        setEmpNo(values.empNo);
+                        setRegNo(values.regNo);
+                        setIsSuperUser(values.isSuperUser);
                         fetchData();
+                    }
                     return;
                 } else if (data) {
                     setComplaints([{ regNo: "RegNo", subject: "Subject", status: "Status", complaint: "Complaint", relatedDepts: ["Depts"] }, ...data]);

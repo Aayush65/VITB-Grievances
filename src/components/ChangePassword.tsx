@@ -1,7 +1,8 @@
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { getAccessToken } from "../utils/getAccessToken";
 import { AdminNavbar, Navbar } from ".";
+import { context } from "../context";
 
 const ChangePassword = () => {
     const [pass, setPass] = useState("");
@@ -10,6 +11,8 @@ const ChangePassword = () => {
     const [isDataValid, setIsDataValid] = useState<boolean>(false);
 
     const [alert, setAlert] = useState<[string, boolean]>(["", false]);
+
+    const { empNo, regNo } = useContext(context);
 
     // sending the newpass and curr password for authentication and updation
     useEffect(() => {
@@ -20,11 +23,9 @@ const ChangePassword = () => {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
                 let body;
-                if (localStorage.getItem("regNo")){
-                    const regNo = localStorage.getItem("regNo");
+                if (regNo){
                     body = JSON.stringify({ regNo, pass, newPass });
                 } else {
-                    const empNo = localStorage.getItem("empNo");
                     body = JSON.stringify({ empNo, pass, newPass })
                 }
                 const response = await fetch(`http://localhost:3000/change-password`, { method: 'POST', headers, body })
@@ -87,7 +88,7 @@ const ChangePassword = () => {
 
     return (
         <div>
-            {localStorage.getItem("isSuperUser") ? <AdminNavbar /> : <Navbar />}
+            {empNo ? <AdminNavbar /> : <Navbar />}
             <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
                 <div className={`${alert[0] ? "": "hidden"} fixed ${alert[1] ? "bg-green-500" : "bg-red-500"} text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
                     {alert[0]}

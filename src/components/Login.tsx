@@ -1,5 +1,6 @@
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState, useEffect, useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { context } from "../context";
 
 const Login = () => {
     const [pass, setPass] = useState("");
@@ -8,6 +9,7 @@ const Login = () => {
 
     const [alert, setAlert] = useState<string>("");
 
+    const { setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
     const navigate = useNavigate();
 
     // sending the login details for authentication and setting the jwt token
@@ -31,12 +33,12 @@ const Login = () => {
                     localStorage.clear();
                     localStorage.setItem("refreshToken", data.refreshToken);
                     localStorage.setItem("accessToken", data.accessToken);
-                    localStorage.setItem("name", data.name);
+                    setName(data.name);
                     if (username.toLowerCase() === username.toUpperCase()) {
-                        localStorage.setItem("empNo", data.empNo);
-                        localStorage.setItem("isSuperUser", data.isSuperUser);
+                        setEmpNo(data.empNo);
+                        setIsSuperUser(data.isSuperUser);
                     } else {
-                        localStorage.setItem("regNo", data.regNo);
+                        setRegNo(data.regNo);
                     }
                     navigate('/');
                 }
