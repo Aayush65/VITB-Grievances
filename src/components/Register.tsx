@@ -95,7 +95,7 @@ const Register = () => {
                         <Link to="/login" className={`${index === registerDetails.length - 1 ? "" : "hidden"} hover:underline self-end text-[13px] md:text-base`}>Already a User?</Link>
                     </label>
                 ))}
-                <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>
+                <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Register</button>
             </form>
         </div>
     ) : <Navigate to="/" />
