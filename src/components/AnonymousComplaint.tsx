@@ -17,10 +17,10 @@ const AnonymousComplaint = () => {
         async function postData() {
             try {
                 const headers = {
-                    'Authorization': `Bearer ${localStorage.getItem('regNo')} ${localStorage.getItem('accessToken')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const body = JSON.stringify({ subject, complaint, relatedDepts });
+                const body = JSON.stringify({ subject, complaint, relatedDepts, isAnonymous: true });
                 const response = await fetch(`http://localhost:3000/grievances/`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {

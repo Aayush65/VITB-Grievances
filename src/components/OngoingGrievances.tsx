@@ -4,16 +4,15 @@ import { getAccessToken } from "../utils/getAccessToken";
 
 const OngoingGrievances = () => {
     const [ complaints, setComplaints ] = useState([{ subject: "Subject", status: "Status", complaint: "Complaint", relatedDepts: ["Depts"] }]);
-    const regNo = localStorage.getItem('regNo');
     
     useEffect(() => {
         async function fetchData() {
             try {
                 const headers = {
-                    'Authorization': `Bearer ${localStorage.getItem('regNo')} ${localStorage.getItem('accessToken')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const response = await fetch(`http://localhost:3000/grievances/${regNo}`, { method: 'GET', headers})
+                const response = await fetch(`http://localhost:3000/grievances`, { method: 'GET', headers})
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     if (await getAccessToken())

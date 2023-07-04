@@ -16,7 +16,7 @@ const ChangePassword = () => {
         async function changePass() {
             try {
                 const headers = {
-                    'Authorization': `Bearer ${localStorage.getItem('regNo') ? localStorage.getItem('regNo') : localStorage.getItem('empNo')} ${localStorage.getItem('accessToken')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
                 let body;

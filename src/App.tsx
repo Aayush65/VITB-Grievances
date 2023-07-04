@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainSite from "./MainSite";
-import { Login, Register, ServerError, NonExistant, ChangePassword } from "./components";
+import { Login, Register, ServerError, NonExistant, ChangePassword, ForgetPassword } from "./components";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/change-password" element={<ChangePassword />} />
+				<Route path="/forget-password" element={<ForgetPassword />} />
 				<Route path="/*" element={<NonExistant />} />
 			</Routes>
 		</Router>

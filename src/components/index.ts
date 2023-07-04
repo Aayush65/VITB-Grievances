@@ -10,6 +10,7 @@ import ChangePassword from "./ChangePassword";
 import AdminNavbar from "./AdminNavbar";
 import Grievances from "./Grievances";
 import ModifyAdmins from "./ModifyAdmins";
+import ForgetPassword from "./ForgetPassword";
 
 
 export {
@@ -24,5 +25,6 @@ export {
     AnonymousComplaint,
     Grievances,
     ModifyAdmins,
-    ChangePassword
+    ChangePassword,
+    ForgetPassword,
 }
