@@ -12,6 +12,7 @@ import Grievances from "./Grievances";
 import ModifyAdmins from "./ModifyAdmins";
 import ForgetPassword from "./ForgetPassword";
 import LoadingSpinner from "./LoadingSpinner";
+import UserIcon from "./UserIcon";
 
 export {
     ServerError,
@@ -19,6 +20,7 @@ export {
     Login,
     AdminNavbar,
     Register,
+    UserIcon,
     Navbar,
     OngoingGrievances,
     SubmitGrievance,

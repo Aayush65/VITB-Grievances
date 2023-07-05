@@ -12,12 +12,13 @@
     - Signout
 6. Change Password
 7. Add Profile Picture
+8. Limit Subject in Complaints
+9. Reopen for students
 
 -- Optional
 1. UserId instead of Reg No in Login Page
 
 
 -- Vaibhav
-1. Confirm Mail id (OTP)    - nodeMailer
 2. Reminder mails (if any updates on status change on complaints).
 3. Dropdown (shows only those matching the written input).
