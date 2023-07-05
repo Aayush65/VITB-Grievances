@@ -5,11 +5,12 @@ import { dropdown } from "../assets";
 import LoadingSpinner from "./LoadingSpinner";
 
 interface complaintType {
-    _id: string,
-    subject: string,
-    complaint: string,
-    relatedDepts: string[],
+    _id: string;
+    subject: string;
+    complaint: string;
+    relatedDepts: string[];
     status: string;
+    remarks: string[][];
 }
 
 const OngoingGrievances = () => {
@@ -70,7 +71,7 @@ const OngoingGrievances = () => {
                         <div className={`flex items-center justify-around p-2 md:p-4 border-black border-2 rounded-xl text-sm md:text-base cursor-pointer ${complaint._id === '0' ? "hidden": ""} ${activeComplaintIndex === index ? "bg-[#bbd8e2]": "" }`} onClick={() => handleActiveComplaints(index)} >
                             <div className={`w-[20%] truncate text-ellipsis`}>{complaint._id}</div>
                             <div className={`w-[40%] truncate text-ellipsis`}>{complaint.subject}</div>
-                            <div className={`group w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center transition duration-300 ${complaint.status === "pending" ? "bg-red-500" : complaint.status === "seen" ? "bg-orange-500" : complaint.status === "opened" ? 'bg-yellow-500' : `bg-green-500`} relative`}><span className="absolute hidden bg-gray-600 text-white p-1 -top-8 rounded-lg md:group-hover:block">{complaint.status}</span></div>
+                            <div className={`group w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center transition duration-300 ${complaint.status === "pending" ? "bg-red-500" : complaint.status === "seen" ? "bg-orange-500" : complaint.status === "opened" ? 'bg-yellow-500' : `bg-green-500`}`}><span className="hidden bg-gray-600 text-white p-1 rounded-lg md:group-hover:block transform -translate-y-8">{complaint.status}</span></div>
                             <img src={dropdown} alt="dropdown" className={`w-[5%] ${activeComplaintIndex === index ? "invisible" : ""}`} />
                         </div>
                         <div className={`${activeComplaintIndex === index ? "bg-[#bbd8e2]" : "hidden"} flex flex-col items-start justify-center py-2 md:py-6 px-4 md:px-10 border-black border-2 rounded-xl text-sm md:text-base gap-1`}>
@@ -79,13 +80,22 @@ const OngoingGrievances = () => {
                                 { title: "Status:", value: complaint.status },
                                 { title: "Tags:", value: String(complaint.relatedDepts) },
                                 { title: "Subject:", value: complaint.subject },
-                                { title: "Content:", value: complaint.complaint } 
+                                { title: "Content:", value: complaint.complaint },
+                                { title: "Content:", value: complaint.complaint },
                              ].map((values, index) => (
                                 <div key={index} className={`w-full flex items-center ${values.title === "Status:" ? "md:hidden" : "" }`}>
                                     <div className="w-[30%] md:w-[15%] font-bold">{values.title}</div>
                                     <div className="max-w-[70%]">{values.value}</div>
                                 </div>
                             ))}
+                            {complaint.remarks.length ? <div className="w-full flex">
+                                <div className="w-[33%] md:w-[15%] font-bold">Remarks:</div>
+                                <div className="max-w-[67%] flex flex-col">
+                                    {complaint.remarks.map((remark, index) => (
+                                        <div key={index}>{remark[0] + " - " + remark[1]}</div>
+                                    ))}
+                                </div>
+                            </div> : null}
                         </div>
                     </div>
                 ))}
