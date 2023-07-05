@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { getAccessToken } from "../utils/getAccessToken";
 import { context } from "../context";
 import { dropdown } from "../assets";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface complaintType {
     _id: string,
@@ -38,6 +39,8 @@ const OngoingGrievances = () => {
                     }
                     return;
                 } else if (data) {
+                    if (data.length === 0)
+                        data.push({_id: '0'});
                     setComplaints(data);
                 }
             } catch(err) {
@@ -56,17 +59,17 @@ const OngoingGrievances = () => {
 
     return (
         <div className="max-w-screen min-h-screen px-6 md:p-20 flex flex-col justify-center items-center">
-            <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">{complaints.length ? "Your complaints" : "You have no complaints"}</h1>
+            <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">{complaints.length && complaints[0]._id === '0' ? "You have no complaints" : complaints.length ? "Your complaints" : <div className="flex gap-3"><LoadingSpinner />Loading...</div>}</h1>
             <div className="w-full md:w-4/5 lg:w-2/3">
                 {complaints.map((complaint, index) => (
-                    <div key={index} className="flex flex-col" onClick={() => handleActiveComplaints(index)} >
-                        <div className="flex items-center justify-around p-2 md:p-4 border-black border-2 rounded-xl text-sm md:text-base cursor-pointer">
-                            <div className={`w-[20%] md:w-[30%] truncate text-ellipsis`}>{complaint._id}</div>
-                            <div className={`w-[40%] md:w-[30%] truncate text-ellipsis`}>{complaint.subject}</div>
+                    <div key={index} className="flex flex-col" >
+                        <div className={`flex items-center justify-around p-2 md:p-4 border-black border-2 rounded-xl text-sm md:text-base cursor-pointer ${complaint._id === '0' ? "hidden": ""} ${activeComplaintIndex === index ? "bg-[#bbd8e2]": "" }`} onClick={() => handleActiveComplaints(index)} >
+                            <div className={`w-[20%] truncate text-ellipsis`}>{complaint._id}</div>
+                            <div className={`w-[40%] truncate text-ellipsis`}>{complaint.subject}</div>
                             <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full ${complaint.status === "pending" ? "bg-red-500" : complaint.status === "opened" ? 'bg-yellow-500' : `bg-gray-500`}`}></div>
                             <img src={dropdown} alt="dropdown" className={`w-[5%] ${activeComplaintIndex === index ? "invisible" : ""}`} />
                         </div>
-                        <div className={`${activeComplaintIndex === index ? "" : "hidden"} flex flex-col items-start justify-center py-2 md:py-6 px-4 md:px-10 border-black border-2 rounded-xl text-sm md:text-base gap-1`}>
+                        <div className={`${activeComplaintIndex === index ? "bg-[#bbd8e2]" : "hidden"} flex flex-col items-start justify-center py-2 md:py-6 px-4 md:px-10 border-black border-2 rounded-xl text-sm md:text-base gap-1`}>
                             {[
                                 { title: "Complaint Id:", value: complaint._id },
                                 { title: "Tags:", value: String(complaint.relatedDepts) },

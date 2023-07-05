@@ -11,7 +11,7 @@ import AdminNavbar from "./AdminNavbar";
 import Grievances from "./Grievances";
 import ModifyAdmins from "./ModifyAdmins";
 import ForgetPassword from "./ForgetPassword";
-
+import LoadingSpinner from "./LoadingSpinner";
 
 export {
     ServerError,
@@ -27,4 +27,5 @@ export {
     ModifyAdmins,
     ChangePassword,
     ForgetPassword,
+    LoadingSpinner,
 }
