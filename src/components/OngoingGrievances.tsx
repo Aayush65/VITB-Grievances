@@ -8,7 +8,7 @@ interface complaintType {
     _id: string,
     subject: string,
     complaint: string,
-    relatedDepts: string[];
+    relatedDepts: string[],
     status: string;
 }
 
@@ -58,8 +58,12 @@ const OngoingGrievances = () => {
     }
 
     return (
-        <div className="max-w-screen min-h-screen px-6 md:p-20 flex flex-col justify-center items-center">
-            <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">{complaints.length && complaints[0]._id === '0' ? "You have no complaints" : complaints.length ? "Your complaints" : <div className="flex gap-3"><LoadingSpinner />Loading...</div>}</h1>
+        <div className="max-w-screen min-h-screen px-4 py-20 md:p-20 flex flex-col justify-center items-center">
+            <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">{
+                complaints.length && complaints[0]._id === '0' ? "You have no complaints" : 
+                complaints.length ? "Your complaints" : 
+                <div className="flex gap-3"><LoadingSpinner />Loading...</div> 
+            }</h1>
             <div className="w-full md:w-4/5 lg:w-2/3">
                 {complaints.map((complaint, index) => (
                     <div key={index} className="flex flex-col" >
