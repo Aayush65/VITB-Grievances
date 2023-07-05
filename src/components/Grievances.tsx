@@ -39,7 +39,7 @@ const Grievances = () => {
 
 
     return (
-        <div className="w-screen min-h-screen p-20 flex flex-col justify-center items-center">
+        <div className="w-max-screen min-h-screen p-20 flex flex-col justify-center items-center">
             <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">Your complaints</h1>
             <div className="md:w-4/5 lg:w-2/3">
                 {complaints.map((complaint, index) => (

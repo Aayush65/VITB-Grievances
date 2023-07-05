@@ -88,7 +88,7 @@ const Login = () => {
                         {detail.name}
                         <input className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => detail.funct(e.target.value)} type={detail.name.toLowerCase()} placeholder={detail.placeholder} value={detail.value} />
                         <div className="flex justify-between">
-                            <Link to="/register" className={`hover:underline self-end text-[13px] md:text-base ${detail.name === "Password" ? "": "hidden"}`}>Forgot Password?</Link>
+                            <Link to="/forget-password" className={`hover:underline self-end text-[13px] md:text-base ${detail.name === "Password" ? "": "hidden"}`}>Forgot Password?</Link>
                             <Link to="/register" className={`hover:underline self-start text-[13px] md:text-base ${index === loginDetails.length - 1 ? "": "hidden"}`}>Register Here</Link>
                         </div>
                     </label>
