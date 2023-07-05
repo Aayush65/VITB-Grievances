@@ -1,13 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { getAccessToken } from "../utils/getAccessToken";
 import { context } from "../context";
+import { dropdown } from "../assets";
 
+interface complaintType {
+    _id: string,
+    subject: string,
+    complaint: string,
+    relatedDepts: string[];
+    status: string;
+}
 
 const OngoingGrievances = () => {
-    const [ complaints, setComplaints ] = useState([{ subject: "Subject", status: "Status", complaint: "Complaint", relatedDepts: ["Depts"] }]);
+    const [ complaints, setComplaints ] = useState<complaintType[]>([]);
+    const [ activeComplaintIndex, setActiveComplaintIndex ] = useState<number>(-1);
 
     const { setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
     
+    //fetches all the complaints from the server
     useEffect(() => {
         async function fetchData() {
             try {
@@ -28,7 +38,7 @@ const OngoingGrievances = () => {
                     }
                     return;
                 } else if (data) {
-                    setComplaints([{ subject: "Subject", status: "Status", complaint: "Complaint", relatedDepts: ["Depts"] }, ...data]);
+                    setComplaints(data);
                 }
             } catch(err) {
                 console.error(err);
@@ -37,18 +47,38 @@ const OngoingGrievances = () => {
         fetchData();
     }, []);
 
+    function handleActiveComplaints(index: number) {
+        if (activeComplaintIndex === index)
+            setActiveComplaintIndex(-1);
+        else
+            setActiveComplaintIndex(index);
+    }
 
     return (
-        <div className="w-screen min-h-screen p-20 flex flex-col justify-center items-center">
-            <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">Your complaints</h1>
-            <div className="md:w-4/5 lg:w-2/3">
+        <div className="max-w-screen min-h-screen px-6 md:p-20 flex flex-col justify-center items-center">
+            <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">{complaints.length ? "Your complaints" : "You have no complaints"}</h1>
+            <div className="w-full md:w-4/5 lg:w-2/3">
                 {complaints.map((complaint, index) => (
-                    <div key={index} className={`flex ${index ? "": "font-bold"}`}>
-                        <div className="border-black border-2 w-[5%] text-center">{index ? index: ""}</div>
-                        <div className="border-black border-2 w-[30%]">{complaint.subject}</div>
-                        <div className="border-black border-2 w-[50%]">{complaint.complaint}</div>
-                        <div className="border-black border-2 w-[50%]">{String(complaint.relatedDepts)}</div>
-                        <div className="border-black border-2 w-[10%]">{complaint.status}</div>
+                    <div key={index} className="flex flex-col" onClick={() => handleActiveComplaints(index)} >
+                        <div className="flex items-center justify-around p-2 md:p-4 border-black border-2 rounded-xl text-sm md:text-base cursor-pointer">
+                            <div className={`w-[20%] md:w-[30%] truncate text-ellipsis`}>{complaint._id}</div>
+                            <div className={`w-[40%] md:w-[30%] truncate text-ellipsis`}>{complaint.subject}</div>
+                            <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full ${complaint.status === "pending" ? "bg-red-500" : complaint.status === "opened" ? 'bg-yellow-500' : `bg-gray-500`}`}></div>
+                            <img src={dropdown} alt="dropdown" className={`w-[5%] ${activeComplaintIndex === index ? "invisible" : ""}`} />
+                        </div>
+                        <div className={`${activeComplaintIndex === index ? "" : "hidden"} flex flex-col items-start justify-center py-2 md:py-6 px-4 md:px-10 border-black border-2 rounded-xl text-sm md:text-base gap-1`}>
+                            {[
+                                { title: "Complaint Id:", value: complaint._id },
+                                { title: "Tags:", value: String(complaint.relatedDepts) },
+                                { title: "Subject:", value: complaint.subject },
+                                { title: "Content:", value: complaint.complaint } 
+                             ].map((values, index) => (
+                                <div key={index} className="w-full flex items-center">
+                                    <div className="w-[30%] md:w-[15%] font-bold">{values.title}</div>
+                                    <div className="max-w-[70%]">{values.value}</div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 ))}
             </div>
