@@ -81,7 +81,6 @@ const OngoingGrievances = () => {
                                 { title: "Tags:", value: String(complaint.relatedDepts) },
                                 { title: "Subject:", value: complaint.subject },
                                 { title: "Content:", value: complaint.complaint },
-                                { title: "Content:", value: complaint.complaint },
                              ].map((values, index) => (
                                 <div key={index} className={`w-full flex items-center ${values.title === "Status:" ? "md:hidden" : "" }`}>
                                     <div className="w-[30%] md:w-[15%] font-bold">{values.title}</div>

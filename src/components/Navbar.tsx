@@ -3,16 +3,33 @@ import { context } from "../context"
 import { close, menu } from "../assets";
 import { useNavigate } from "react-router-dom";
 import { UserIcon } from ".";
+import { getAccessToken } from "../utils/getAccessToken";
 
 
 const Navbar = () => {
     const [ isMenuShowing, setIsMenuShowing ] = useState(false);
     const [ isUserMenuShowing, setIsUserMenuShowing ] = useState(false);
 
-    const { currPortal, setCurrPortal } = useContext(context);
+    const { empNo, regNo, setName, setEmpNo, setRegNo, setIsSuperUser, currPortal, setCurrPortal } = useContext(context);
     const navigate = useNavigate();
 
     const navLinks = ["Ongoing Grievances", "Submit a Grievance", "Anonymous Complaints/Suggestions"]
+
+    useEffect(() => {
+        if (empNo || regNo)
+            return;
+        async function fetchToken() {
+            const values = await getAccessToken();
+            if (values) {
+                setName(values.name);
+                setEmpNo(values.empNo);
+                setRegNo(values.regNo);
+                setIsSuperUser(values.isSuperUser);
+            }
+
+        }
+        fetchToken()
+    }, []);
 
     useEffect(() => {
         if (isMenuShowing && isUserMenuShowing) 

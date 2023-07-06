@@ -6,10 +6,10 @@ import { getAccessToken } from "./utils/getAccessToken";
 
 
 const MainSite = () => {
-    const { empNo, currPortal, currAdminPortal, setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
+    const { empNo, regNo, currPortal, currAdminPortal, setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
 
     useEffect(() => {
-        if (!localStorage.length)
+        if (empNo || regNo)
             return;
         async function fetchToken() {
             const values = await getAccessToken();
@@ -21,10 +21,10 @@ const MainSite = () => {
             }
 
         }
-            
         fetchToken()
-    }, [])
+    }, []);
 
+    
     return !localStorage.getItem("accessToken") ? (
         <Navigate to='/login' />
     ) : empNo ? (

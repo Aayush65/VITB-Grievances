@@ -13,6 +13,7 @@ import ModifyAdmins from "./ModifyAdmins";
 import ForgetPassword from "./ForgetPassword";
 import LoadingSpinner from "./LoadingSpinner";
 import UserIcon from "./UserIcon";
+import Profile from "./Profile";
 
 export {
     ServerError,
@@ -30,4 +31,5 @@ export {
     ChangePassword,
     ForgetPassword,
     LoadingSpinner,
+    Profile,
 }

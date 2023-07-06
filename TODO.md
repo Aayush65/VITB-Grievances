@@ -17,6 +17,7 @@
 
 -- Optional
 1. UserId instead of Reg No in Login Page
+2. Compressed transfer of data
 
 
 -- Vaibhav
