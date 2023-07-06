@@ -13,7 +13,7 @@ function App() {
 	}, [])
 
 	return isServerActive ? (
-		<Router basename={"https://vitb-grievances.aayush65.com/"}>
+		<Router>
 			<Routes>
 				<Route path="/" element={<MainSite />} />
 				<Route path="/login" element={<Login />} />
