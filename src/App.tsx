@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainSite from "./MainSite";
 import { Login, Register, ServerError, NonExistant, ChangePassword, Profile } from "./components";
 import { useState, useEffect } from "react";
@@ -13,7 +13,7 @@ function App() {
 	}, [])
 
 	return isServerActive ? (
-		<Router>
+		<Router basename='https://grievance-server.aayush65.com'>
 			<Routes>
 				<Route path="/" element={<MainSite />} />
 				<Route path="/login" element={<Login />} />
