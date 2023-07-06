@@ -1,72 +1,72 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
-import { AdminNavbar, Navbar } from ".";
-import { getAccessToken } from "../utils/getAccessToken";
-import { context } from "../context";
+// import { FormEvent, useContext, useEffect, useState } from "react";
+// import { AdminNavbar, Navbar } from ".";
+// import { getAccessToken } from "../utils/getAccessToken";
+// import { context } from "../context";
 
 
 const ForgetPassword = () => {
-    const [userNum, setUserNum] = useState<string>("")
-    const [alert, setAlert] = useState<[string, boolean]>(["", false]);
-    const [isOTPGenerated, setIsOTPGenerated] = useState<boolean>(false);
-    const [otpHash, setOtpHash] = useState<string>('');
-    const [enteredOTP, setEnteredOTP] = useState<string>('');
-    const [isOTPCorrect, setIsOTPCorrect] = useState<boolean>(false);
+    // const [userNum, setUserNum] = useState<string>("")
+    // const [alert, setAlert] = useState<[string, boolean]>(["", false]);
+    // const [isOTPGenerated, setIsOTPGenerated] = useState<boolean>(false);
+    // const [otpHash, setOtpHash] = useState<string>('');
+    // const [enteredOTP, setEnteredOTP] = useState<string>('');
+    // const [isOTPCorrect, setIsOTPCorrect] = useState<boolean>(false);
 
-    const { empNo, setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
-    // sending the regNo and getting the generated otpHash
-    useEffect(() => {
-        async function gettingOTP() {
-            try {
-                const headers = {
-                    'Content-type': 'application/json; charset=UTF-8',
-                }
-                const response = await fetch(`http://localhost:3000/forget-password/${userNum}`, { method: 'GET', headers })
-                const data = await response.json();
-                if (data.message === "Unauthorised Access") {
-                    const values = await getAccessToken();
-                    if (values) {
-                        setName(values.name);
-                        setEmpNo(values.empNo);
-                        setRegNo(values.regNo);
-                        setIsSuperUser(values.isSuperUser);
-                        gettingOTP();
-                    }
-                    return; 
-                } else if (data) {
-                    setOtpHash(data.otpHash);
-                } else {
-                    handleReset();
-                }
-            } catch(err) {
-                console.error(err);
-                handleReset();
-            };
-        }
-        if (!isOTPGenerated)
-            return;
-        gettingOTP();
-    }, [isOTPGenerated])
+    // const { empNo, setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
+    // // sending the regNo and getting the generated otpHash
+    // useEffect(() => {
+    //     async function gettingOTP() {
+    //         try {
+    //             const headers = {
+    //                 'Content-type': 'application/json; charset=UTF-8',
+    //             }
+    //             const response = await fetch(`http://localhost:3000/forget-password/${userNum}`, { method: 'GET', headers })
+    //             const data = await response.json();
+    //             if (data.message === "Unauthorised Access") {
+    //                 const values = await getAccessToken();
+    //                 if (values) {
+    //                     setName(values.name);
+    //                     setEmpNo(values.empNo);
+    //                     setRegNo(values.regNo);
+    //                     setIsSuperUser(values.isSuperUser);
+    //                     gettingOTP();
+    //                 }
+    //                 return; 
+    //             } else if (data) {
+    //                 setOtpHash(data.otpHash);
+    //             } else {
+    //                 handleReset();
+    //             }
+    //         } catch(err) {
+    //             console.error(err);
+    //             handleReset();
+    //         };
+    //     }
+    //     if (!isOTPGenerated)
+    //         return;
+    //     gettingOTP();
+    // }, [isOTPGenerated])
 
-    // setTimeout for the alert message
-    useEffect(() => {
-        if (!alert[0])
-            return;
-        setTimeout(() => setAlert(['', false]), alert[0].length * 100);
-    }, [alert])
+    // // setTimeout for the alert message
+    // useEffect(() => {
+    //     if (!alert[0])
+    //         return;
+    //     setTimeout(() => setAlert(['', false]), alert[0].length * 100);
+    // }, [alert])
 
-    function handleSubmit(e: FormEvent) {
-        e.preventDefault();
-        setIsOTPGenerated(true);
-    }
+    // function handleSubmit(e: FormEvent) {
+    //     e.preventDefault();
+    //     setIsOTPGenerated(true);
+    // }
     
-    function handleReset() {
-        setUserNum('');
-        setIsOTPGenerated(false);
-    }
+    // function handleReset() {
+    //     setUserNum('');
+    //     setIsOTPGenerated(false);
+    // }
 
     return (
         <div className="">
-            {!localStorage.getItem("accessToken") ? null : empNo ? <AdminNavbar /> : <Navbar />}
+            {/* {!localStorage.getItem("accessToken") ? null : empNo ? <AdminNavbar /> : <Navbar />}
             <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
                 <div className={`${alert[0] ? "": "hidden"} fixed ${alert[1] ? "bg-green-500" : "bg-red-500"} text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
                     {alert[0]}
@@ -87,7 +87,7 @@ const ForgetPassword = () => {
                     </label>
                     <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>
                 </form>
-            </div>
+            </div> */}
         </div>
     )
 }
