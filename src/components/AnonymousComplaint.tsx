@@ -23,7 +23,7 @@ const AnonymousComplaint = () => {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
                 const body = JSON.stringify({ subject, complaint, relatedDepts, isAnonymous: true });
-                const response = await fetch(`http://localhost:3000/grievances/`, { method: 'POST', headers, body })
+                const response = await fetch(`https://grievance-server.aayush65.com/grievances/`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();

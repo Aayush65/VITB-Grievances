@@ -20,7 +20,7 @@ const Register = () => {
         if (!isDataValid)
             return;
         setIsDataValid(false);
-        fetch('http://localhost:3000/register', {
+        fetch('https://grievance-server.aayush65.com/register', {
             method: 'POST',
             body: JSON.stringify({ name, regNo, year, email, pass }),
             headers: {

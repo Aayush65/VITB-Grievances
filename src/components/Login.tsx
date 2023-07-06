@@ -16,7 +16,7 @@ const Login = () => {
     useEffect(() => {
         if (!isSubmit)
             return;
-        fetch("http://localhost:3000/login", {
+        fetch("https://grievance-server.aayush65.com/login", {
             method: 'POST',
             body: username.toLowerCase() === username.toUpperCase() ? JSON.stringify({ empNo: username, pass }) : JSON.stringify({ regNo: username, pass }),
             headers: {

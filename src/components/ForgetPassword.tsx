@@ -20,7 +20,7 @@ const ForgetPassword = () => {
     //             const headers = {
     //                 'Content-type': 'application/json; charset=UTF-8',
     //             }
-    //             const response = await fetch(`http://localhost:3000/forget-password/${userNum}`, { method: 'GET', headers })
+    //             const response = await fetch(`https://grievance-server.aayush65.com/forget-password/${userNum}`, { method: 'GET', headers })
     //             const data = await response.json();
     //             if (data.message === "Unauthorised Access") {
     //                 const values = await getAccessToken();

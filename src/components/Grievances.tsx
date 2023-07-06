@@ -36,7 +36,7 @@ const Grievances = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const response = await fetch(`http://localhost:3000/grievances`, { method: 'GET', headers});
+                const response = await fetch(`https://grievance-server.aayush65.com/grievances`, { method: 'GET', headers});
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();
@@ -69,7 +69,7 @@ const Grievances = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 };
-                const response = await fetch(`http://localhost:3000/grievances/change-status`, { method: 'POST', headers, body: JSON.stringify(body) });
+                const response = await fetch(`https://grievance-server.aayush65.com/grievances/change-status`, { method: 'POST', headers, body: JSON.stringify(body) });
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();

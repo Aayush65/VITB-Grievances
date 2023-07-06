@@ -28,7 +28,7 @@ const ChangePassword = () => {
                 } else {
                     body = JSON.stringify({ empNo, pass, newPass })
                 }
-                const response = await fetch(`http://localhost:3000/change-password`, { method: 'POST', headers, body })
+                const response = await fetch(`https://grievance-server.aayush65.com/change-password`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     if (await getAccessToken())

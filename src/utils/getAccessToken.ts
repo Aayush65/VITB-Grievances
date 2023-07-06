@@ -5,7 +5,7 @@ export async function getAccessToken() {
             'Authorization': `Bearer ${localStorage.getItem('refreshToken')}`,
             'Content-type': 'application/json; charset=UTF-8',
         }
-        const response = await fetch("http://localhost:3000/accesstoken", { method: 'GET', headers });
+        const response = await fetch("https://grievance-server.aayush65.com/accesstoken", { method: 'GET', headers });
         const data = await response.json();
         if (data && data.message === "Unauthorised Access"){
             localStorage.clear();

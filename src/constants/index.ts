@@ -1,4 +1,4 @@
-fetch("http://localhost:3000/tags")
+fetch("https://grievance-server.aayush65.com/tags")
     .then(response => response.json())
     .then(data => {tags = data;})
     .catch(error => console.log(error))

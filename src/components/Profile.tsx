@@ -35,7 +35,7 @@ const Profile = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const response = await fetch(`http://localhost:3000/profile`, { method: 'GET', headers})
+                const response = await fetch(`https://grievance-server.aayush65.com/profile`, { method: 'GET', headers})
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();

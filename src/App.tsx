@@ -7,7 +7,7 @@ function App() {
 	const [isServerActive, setIsServerActive] = useState(false);
 
 	useEffect(() => {
-		fetch("http://localhost:3000/ping", { method: 'get'})
+		fetch("https://grievance-server.aayush65.com/ping", { method: 'get'})
 			.then(() => setIsServerActive(true))
 			.catch(() => setIsServerActive(false));
 	}, [])
