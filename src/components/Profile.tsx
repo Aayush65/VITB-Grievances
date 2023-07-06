@@ -62,18 +62,18 @@ const Profile = () => {
         fetchData();
     });
 
-    const profileData = empNo ? [ { title: "Name: ", value: name }, { title: "Employee Number: ", value: empNo }, { title: "Department: ", value: dept }, { title: "Email: ", value: email } ] : [ { title: "Name: ", value: name }, { title: "Registration Number: ", value: regNo }, { title: "Year: ", value: year }, { title: "Email: ", value: email } ];
+    const profileData = empNo ? [ { title: "Name: ", value: "Dr. " + name }, { title: "Employee Number: ", value: empNo }, { title: "Department: ", value: dept }, { title: "Email: ", value: email } ] : [ { title: "Name: ", value: name }, { title: "Registration Number: ", value: regNo }, { title: "Year: ", value: year }, { title: "Email: ", value: email } ];
 
     return (
         <div>
             {empNo ? <AdminNavbar /> : <Navbar />}
             <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
                 <img src={user} alt="user" className="w-24 h-24 md:w-32 md:h-32 object-contain border-black border-2 mb-20" />
-                <div className="flex flex-col items-center border-2 border-black w-full md:w-1/2 p-4 gap-3">
+                <div className="flex flex-col items-center border-2 border-black w-full md:w-1/2 gap-3 justify-center bg-[#3A98B9] p-7 md:p-10 text-[#FFF1DC] rounded-3xl">
                     {profileData.map((data, index) => (
                         <div key={index} className="flex justify-between w-full">
-                            <p className="text-md md:text-lg">{data.title}</p>
-                            <p className="text-md md:text-lg">{data.value}</p>
+                            <p className="text-sm md:text-lg">{data.title}</p>
+                            <p className="text-sm md:text-lg">{data.value}</p>
                         </div>
                     ))}
                 </div>
