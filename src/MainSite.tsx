@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { AnonymousComplaint, AdminNavbar, Navbar, OngoingGrievances, SubmitGrievance, Grievances, ModifyAdmins } from "./components";
+import { AnonymousComplaint, AdminNavbar, Navbar, OngoingGrievances, SubmitGrievance, Grievances, AddFaculty, RemoveUsers } from "./components";
 import { context } from "./context";
 import { Navigate } from "react-router-dom";
 import { getAccessToken } from "./utils/getAccessToken";
@@ -19,7 +19,6 @@ const MainSite = () => {
                 setRegNo(values.regNo);
                 setIsSuperUser(values.isSuperUser);
             }
-
         }
         fetchToken()
     }, []);
@@ -30,7 +29,13 @@ const MainSite = () => {
     ) : empNo ? (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <AdminNavbar />
-            { !currAdminPortal || currAdminPortal === "All Grievances" ? <Grievances /> : <ModifyAdmins /> }
+            { 
+                !currAdminPortal || currAdminPortal === "All Grievances" ? 
+                <Grievances /> : 
+                currAdminPortal === "Add Faculty" ? 
+                <AddFaculty /> :
+                <RemoveUsers />
+            }
         </div>
     ) : (
         <div className='w-full min-h-screen bg-[#EEEEEE]'>

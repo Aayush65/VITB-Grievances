@@ -106,6 +106,8 @@ const Grievances = () => {
     }
 
     function addRemarks(_id: string) {
+        if (!newRemark)
+            return;
         setBody({ _id, remark: newRemark} as BodyType);
         setChangeStatus(true);
     }

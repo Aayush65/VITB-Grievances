@@ -9,17 +9,20 @@ import AnonymousComplaint from "./AnonymousComplaint";
 import ChangePassword from "./ChangePassword";
 import AdminNavbar from "./AdminNavbar";
 import Grievances from "./Grievances";
-import ModifyAdmins from "./ModifyAdmins";
 import ForgetPassword from "./ForgetPassword";
 import LoadingSpinner from "./LoadingSpinner";
 import UserIcon from "./UserIcon";
 import Profile from "./Profile";
+import AddFaculty from "./AddFaculty";
+import RemoveUsers from "./RemoveUsers";
 
 export {
     ServerError,
     NonExistant,
     Login,
     AdminNavbar,
+    AddFaculty,
+    RemoveUsers,
     Register,
     UserIcon,
     Navbar,
@@ -27,7 +30,6 @@ export {
     SubmitGrievance,
     AnonymousComplaint,
     Grievances,
-    ModifyAdmins,
     ChangePassword,
     ForgetPassword,
     LoadingSpinner,

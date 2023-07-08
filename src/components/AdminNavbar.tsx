@@ -12,10 +12,10 @@ const AdminNavbar = () => {
     const { isSuperUser, currAdminPortal, setCurrAdminPortal } = useContext(context);
     const navigate = useNavigate();
 
-    const navLinks = isSuperUser ? ["All Grievances", "Modify Admins"] : ["All Grievances"];
+    const navLinks = isSuperUser ? ["All Grievances", "Add Faculty", "Remove Users"] : ["All Grievances"];
 
     useEffect(() => {
-        if (isMenuShowing && isUserMenuShowing) 
+        if (isMenuShowing && isUserMenuShowing)
             setIsUserMenuShowing(false);
     }, [isMenuShowing])
 
@@ -43,7 +43,7 @@ const AdminNavbar = () => {
                 <img src={isMenuShowing ? close : menu} alt="menu icon" className="w-5 h-5 -scale-x-100" onClick={() => setIsMenuShowing(!isMenuShowing)}/>
                 <div className={`${isMenuShowing ? "flex" : "hidden"} rounded-xl p-5 bg-[#22667f] absolute top-11 flex flex-col justify-center items-start gap-2 text-[#FFF1DC]`}>
                     {navLinks.map((navLink, index) => (
-                        <div key={index} onClick={() => handleLinkChange(navLink)} className={`${currAdminPortal === navLink ? "font-semibold" : ""} w-full text-[#FFF1DC] whitespace-nowrap hover:cursor-pointer text-center`}>{navLink !== "Anonymous Complaints/Suggestions" ? navLink : "Anonymous Complaints"}</div>
+                        <div key={index} onClick={() => handleLinkChange(navLink)} className={`${currAdminPortal === navLink ? "font-semibold" : ""} w-full text-[#FFF1DC] whitespace-nowrap hover:cursor-pointer text-center`}>{navLink}</div>
                     ))}
                 </div>
                 <UserIcon isUserMenuShowing={isUserMenuShowing} setIsUserMenuShowing={setIsUserMenuShowing} />
