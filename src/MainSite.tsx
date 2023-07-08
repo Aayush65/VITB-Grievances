@@ -6,7 +6,7 @@ import { getAccessToken } from "./utils/getAccessToken";
 
 
 const MainSite = () => {
-    const { empNo, regNo, currPortal, currAdminPortal, setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
+    const { empNo, regNo, isSuperUser, currPortal, currAdminPortal, setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
 
     useEffect(() => {
         if (empNo || regNo)
@@ -30,7 +30,7 @@ const MainSite = () => {
         <div className='w-full min-h-screen bg-[#EEEEEE]'>
             <AdminNavbar />
             { 
-                !currAdminPortal || currAdminPortal === "All Grievances" ? 
+                !currAdminPortal || !isSuperUser || currAdminPortal === "All Grievances" ? 
                 <Grievances /> : 
                 currAdminPortal === "Add Faculty" ? 
                 <AddFaculty /> :
