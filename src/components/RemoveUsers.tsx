@@ -20,6 +20,8 @@ const RemoveUsers = () => {
             const data = await response.json();
             if (data && (data.message === "User Deleted Successfully" || data.message === "Admin Deleted Successfully" ))
                 setAlert([data.message, true]);
+            else if (data.message === "Wrong Credentials")
+                setAlert(["User does not exists", false]);
             else
                 setAlert([data.message, false]);
             handleReset();
