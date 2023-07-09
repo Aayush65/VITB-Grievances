@@ -13,6 +13,7 @@ const ForgetPassword = () => {
     const [ repeatNewPass, setRepeatNewPass ] = useState<string>("");
     const [ isOTPSubmitted, setIsOTPSubmitted ] = useState<boolean>(false);
 
+    const [ loading, setLoading ] = useState<boolean>(false);
     const [ alert, setAlert ] = useState<[string, boolean]>(["", false]);
     const navigate = useNavigate();
     
@@ -32,8 +33,9 @@ const ForgetPassword = () => {
                 setIsOTPSent(true);
             } else {
                 setAlert([data.message, false]);
-                handleReset()
+                handleReset();
             }
+            setLoading(false);
         }
 
         if (!isUserNumSubmitted)
@@ -60,6 +62,7 @@ const ForgetPassword = () => {
                 setAlert([data.message, false]);
                 setOtp('');
             }
+            setLoading(false);
         }
         if (!isOTPSubmitted)
             return;
@@ -87,16 +90,25 @@ const ForgetPassword = () => {
             }
             setIsOTPSubmitted(true);
         } else {
+            if (!userNum) {
+                setAlert(["Please fill all the fields", false]);
+                setUserNum('');
+                return;
+            }
             setUserNum(userNum.toUpperCase());
             setIsUserNumSubmitted(true);
         }
+        setLoading(true);
     }
     
     function handleReset() {
-        setIsOTPSent(false);
+        setUserNum('');
         setIsUserNumSubmitted(false);
+        setIsOTPSent(false);
+        setOtp('');
         setNewPass('');
         setRepeatNewPass('');
+        setIsOTPSubmitted(false);
     }
 
     return (
@@ -123,7 +135,7 @@ const ForgetPassword = () => {
                         Repeat Password
                         <input type="text" placeholder="Enter your OTP" value={repeatNewPass} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setRepeatNewPass(e.target.value)}/>
                     </label>
-                    <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>
+                    <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">{loading ? "Submitting" : "Submit"}</button>
                 </form>
             </div>
         </div>
