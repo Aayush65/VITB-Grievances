@@ -20,22 +20,28 @@ const ForgetPassword = () => {
     // sends regNo or empNo to the backend for otp generation
     useEffect(() => {
         async function sendOTP() {
-            const headers = {
-                'Content-type': 'application/json; charset=UTF-8',
-            }
-            const response = await fetch(`https://grievance-server.aayush65.com/forget-password/${userNum}`, { method: 'GET', headers })
-            const data = await response.json();
-            if (data.message === "OTP Sent Successfully"){
-                setAlert([data.message, true]);
-                setIsOTPSent(true);
-            } else if (data.message === "OTP Already Sent") {
-                setAlert([data.message, false]);
-                setIsOTPSent(true);
-            } else {
-                setAlert([data.message, false]);
+            try {
+                const headers = {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+                const response = await fetch(`https://grievance-server.aayush65.com/forget-password/${userNum}`, { method: 'GET', headers })
+                const data = await response.json();
+                if (data.message === "OTP Sent Successfully"){
+                    setAlert([data.message, true]);
+                    setIsOTPSent(true);
+                } else if (data.message === "OTP Already Sent") {
+                    setAlert([data.message, false]);
+                    setIsOTPSent(true);
+                } else {
+                    setAlert([data.message, false]);
+                    handleReset();
+                }
+                setLoading(false);
+            } catch (err) {
+                console.log(err);
                 handleReset();
+                setAlert(["Something went wrong", false]);
             }
-            setLoading(false);
         }
 
         if (!isUserNumSubmitted)
@@ -46,23 +52,29 @@ const ForgetPassword = () => {
     // checks if otp is correct
     useEffect(() => {
         async function sendOTP() {
-            const headers = {
-                'Content-type': 'application/json; charset=UTF-8',
-            }
-            const body = JSON.stringify({ otp, userNum, newPass })
-            const response = await fetch(`https://grievance-server.aayush65.com/otp-check/`, { method: 'POST', headers, body })
-            const data = await response.json();
-            if (data.message === "Password Changed Successfully"){
-                setAlert([data.message, true]);
-                setTimeout(() => navigate('/'), 3000);
-            } else if (data.message === "Not Found") {
-                setAlert([data.message, false]);
+            try {
+                const headers = {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+                const body = JSON.stringify({ otp, userNum, newPass })
+                const response = await fetch(`https://grievance-server.aayush65.com/otp-check/`, { method: 'POST', headers, body })
+                const data = await response.json();
+                if (data.message === "Password Changed Successfully"){
+                    setAlert([data.message, true]);
+                    setTimeout(() => navigate('/'), 3000);
+                } else if (data.message === "Not Found") {
+                    setAlert([data.message, false]);
+                    handleReset();
+                } else {
+                    setAlert([data.message, false]);
+                    setOtp('');
+                }
+                setLoading(false);
+            } catch (err) {
+                console.log(err);
                 handleReset();
-            } else {
-                setAlert([data.message, false]);
-                setOtp('');
+                setAlert(["Something went wrong", false]);
             }
-            setLoading(false);
         }
         if (!isOTPSubmitted)
             return;
@@ -109,6 +121,7 @@ const ForgetPassword = () => {
         setNewPass('');
         setRepeatNewPass('');
         setIsOTPSubmitted(false);
+        setLoading(false);
     }
 
     return (
@@ -129,11 +142,11 @@ const ForgetPassword = () => {
                     </label>
                     <label className={`${isOTPSent ? "" : "hidden"} flex flex-col gap-1 md:text-lg w-full`}>
                         New Password
-                        <input type="text" placeholder="Enter your OTP" value={newPass} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setNewPass(e.target.value)}/>
+                        <input type="password" placeholder="Enter your New Password" value={newPass} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setNewPass(e.target.value)}/>
                     </label>
                     <label className={`${isOTPSent ? "" : "hidden"} flex flex-col gap-1 md:text-lg w-full`}>
                         Repeat Password
-                        <input type="text" placeholder="Enter your OTP" value={repeatNewPass} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setRepeatNewPass(e.target.value)}/>
+                        <input type="password" placeholder="Repeat your Password" value={repeatNewPass} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setRepeatNewPass(e.target.value)}/>
                     </label>
                     <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">{loading ? "Submitting" : "Submit"}</button>
                 </form>
