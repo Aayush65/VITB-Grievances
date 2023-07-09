@@ -6,10 +6,10 @@ import { AdminNavbar, Navbar } from ".";
 
 const ForgetPassword = () => {
     const { regNo, empNo } = useContext(context);
-    const isLoggedIn = useState<boolean>(regNo !== "" || empNo !== "");
+    const isLoggedIn = Boolean(regNo !== "" || empNo !== "");
 
     const [ userNum, setUserNum ] = useState<string>(regNo || empNo || "");
-    const [ isUserNumSubmitted, setIsUserNumSubmitted ] = useState<boolean>(false);
+    const [ isUserNumSubmitted, setIsUserNumSubmitted ] = useState<boolean>(isLoggedIn);
     const [ isOTPSent, setIsOTPSent ] = useState<boolean>(false);
     
     const [ otp, setOtp ] = useState<string>("");
@@ -48,7 +48,7 @@ const ForgetPassword = () => {
             }
         }
 
-        if (!userNum)
+        if (!isUserNumSubmitted)
             return;
         sendOTPMail();
     }, [isUserNumSubmitted])
