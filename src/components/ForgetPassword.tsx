@@ -1,10 +1,14 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { context } from "../context";
+import { AdminNavbar, Navbar } from ".";
 
 
 const ForgetPassword = () => {
+    const { regNo, empNo } = useContext(context);
+    const isLoggedIn = useState<boolean>(regNo !== "" || empNo !== "");
 
-    const [ userNum, setUserNum ] = useState<string>("");
+    const [ userNum, setUserNum ] = useState<string>(regNo || empNo || "");
     const [ isUserNumSubmitted, setIsUserNumSubmitted ] = useState<boolean>(false);
     const [ isOTPSent, setIsOTPSent ] = useState<boolean>(false);
     
@@ -19,7 +23,7 @@ const ForgetPassword = () => {
     
     // sends regNo or empNo to the backend for otp generation
     useEffect(() => {
-        async function sendOTP() {
+        async function sendOTPMail() {
             try {
                 const headers = {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -44,14 +48,14 @@ const ForgetPassword = () => {
             }
         }
 
-        if (!isUserNumSubmitted)
+        if (!userNum)
             return;
-        sendOTP();
+        sendOTPMail();
     }, [isUserNumSubmitted])
 
     // checks if otp is correct
     useEffect(() => {
-        async function sendOTP() {
+        async function sendOTPAndPass() {
             try {
                 const headers = {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -78,7 +82,7 @@ const ForgetPassword = () => {
         }
         if (!isOTPSubmitted)
             return;
-        sendOTP();
+        sendOTPAndPass();
     }, [isOTPSubmitted])
 
     // setTimeout for the alert message
@@ -123,28 +127,29 @@ const ForgetPassword = () => {
         setIsOTPSubmitted(false);
         setLoading(false);
     }
-
+    
     return (
         <div className="">
+            {!localStorage.getItem("accessToken") ? null : empNo ? <AdminNavbar /> : <Navbar />}
             <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#EEEEEE] p-3">
                 <div className={`${alert[0] ? "": "hidden"} fixed ${alert[1] ? "bg-green-500" : "bg-red-500"} text-white p-4 text-lg rounded-lg top-0 mx-auto flex gap-5`}>
                     {alert[0]}
                     <button className="font-black z-10" onClick={() => setAlert(['', false])}>x</button>
                 </div>
                 <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center bg-[#3A98B9] py-10 px-7 md:p-10 md:pb-7 gap-5 text-[#FFF1DC] rounded-3xl w-full md:w-auto">
-                    <label className={`${isOTPSent ? "hidden" : ""} flex flex-col gap-1 md:text-lg w-full`}>
+                    <label className={`${isOTPSent || isLoggedIn ? "hidden" : ""} flex flex-col gap-1 md:text-lg w-full`}>
                         Registration/Employee Number
                         <input type="text" placeholder="Enter your Registration/Employee Number" value={userNum} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setUserNum(e.target.value)} />
                     </label>
-                    <label className={`${isOTPSent ? "" : "hidden"} flex flex-col gap-1 md:text-lg w-full`}>
+                    <label className={`${isOTPSent || isLoggedIn ? "" : "hidden"} flex flex-col gap-1 md:text-lg w-full`}>
                         OTP
                         <input type="text" placeholder="Enter your OTP" value={otp} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setOtp(e.target.value)} />
                     </label>
-                    <label className={`${isOTPSent ? "" : "hidden"} flex flex-col gap-1 md:text-lg w-full`}>
+                    <label className={`${isOTPSent || isLoggedIn ? "" : "hidden"} flex flex-col gap-1 md:text-lg w-full`}>
                         New Password
                         <input type="password" placeholder="Enter your New Password" value={newPass} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setNewPass(e.target.value)}/>
                     </label>
-                    <label className={`${isOTPSent ? "" : "hidden"} flex flex-col gap-1 md:text-lg w-full`}>
+                    <label className={`${isOTPSent || isLoggedIn ? "" : "hidden"} flex flex-col gap-1 md:text-lg w-full`}>
                         Repeat Password
                         <input type="password" placeholder="Repeat your Password" value={repeatNewPass} className="p-2 rounded-xl placeholder:text-gray-400 md:w-[400px] text-black" onChange={(e) => setRepeatNewPass(e.target.value)}/>
                     </label>
