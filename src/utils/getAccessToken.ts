@@ -1,6 +1,9 @@
 
 export async function getAccessToken() {
     try {
+        if (!localStorage.getItem('refreshToken')) {
+            return;
+        }
         const headers = {
             'Authorization': `Bearer ${localStorage.getItem('refreshToken')}`,
             'Content-type': 'application/json; charset=UTF-8',
