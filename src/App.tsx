@@ -1,15 +1,35 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainSite from "./MainSite";
-import { Login, Register, ServerError, NonExistant, ChangePassword, Profile, ForgetPassword } from "./components";
+import { Login, Register, ServerError, NonExistant, ChangePassword, Profile, ForgetPassword, LoadingSpinner } from "./components";
 import { useState, useEffect } from "react";
 
 function App() {
-	const [isServerActive, setIsServerActive] = useState(false);
+	const [ isServerActive, setIsServerActive ] = useState(false);
+	const [ isTimeout, setIsTimeout ] = useState(false);
 
 	useEffect(() => {
-		fetch("https://grievance-server.aayush65.com/ping", { method: 'get'})
-			.then(() => setIsServerActive(true))
-			.catch(() => setIsServerActive(false));
+		async function ping() {
+			try {
+				await fetch("https://grievance-server.aayush65.com/ping", { method: 'get' });
+				setIsServerActive(true);
+				return true;
+			} catch (error) {
+				setIsServerActive(false);
+				return false;
+			}	
+		}
+
+		ping();
+		let i = 0;
+		const id = setInterval(async () => {
+			const res = await ping();
+			if (res || i > 10)
+				clearInterval(id);
+			if (i > 10)
+				setIsTimeout(true);
+			i ++;
+		}, 500);
+		ping();
 	}, [])
 
 	return isServerActive ? (
@@ -24,7 +44,7 @@ function App() {
 				<Route path="/*" element={<NonExistant />} />
 			</Routes>
 		</Router>
-	) : <ServerError />
+	) : isTimeout ? <ServerError /> : <div className="w-screen h-screen flex justify-center items-center p-5 md:p-10 text-xl md:text-2xl font-semibold gap-3"><LoadingSpinner />Loading...</div>
 }
 
 export default App
