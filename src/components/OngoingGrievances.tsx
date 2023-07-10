@@ -45,7 +45,6 @@ const OngoingGrievances = () => {
                     setComplaints(data);
                 }
             } catch(err) {
-                console.error(err);
             };
         }
         fetchData();

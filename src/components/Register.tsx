@@ -27,11 +27,8 @@ const Register = () => {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-            .then((response) => response.json())
-            .then((data) => console.log(data))
             .then(() => navigate('/login', { replace: true }))
-            .catch((err) => {
-                console.error(err.message);
+            .catch(() => {
                 handleReset();
             });
     }, [isDataValid]);

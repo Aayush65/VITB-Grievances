@@ -40,7 +40,6 @@ const AnonymousComplaint = () => {
                     handleReset();
                 }
             } catch(err) {
-                console.error(err);
             };
         }
         if (!isDataValid)

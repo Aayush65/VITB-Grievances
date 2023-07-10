@@ -54,7 +54,6 @@ const Grievances = () => {
                     setComplaints(data);
             }
             } catch(err) {
-                console.error(err);
             };
         }
         if (changeStatus)
@@ -84,7 +83,6 @@ const Grievances = () => {
                 }
                 handleReset();
             } catch(error) {
-                console.log(error);
             }
         }
         if (!changeStatus)

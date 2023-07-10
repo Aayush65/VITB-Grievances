@@ -42,7 +42,6 @@ const ChangePassword = () => {
                     handleReset();
                 }
             } catch(err) {
-                console.error(err);
                 handleReset();
             };
         }

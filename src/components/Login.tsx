@@ -43,8 +43,7 @@ const Login = () => {
                     navigate('/');
                 }
             })
-            .catch((err) => {
-                console.log("Error: " + err.message);
+            .catch(() => {
                 handleReset();
             })
         setIsSubmit(false);

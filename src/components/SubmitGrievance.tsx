@@ -41,7 +41,6 @@ const SubmitGrievance = () => {
                 }
             } catch(err) {
                 setAlert(["Error in submitting complaint", false]);
-                console.error(err);
             };
         }
         if (!isDataValid)

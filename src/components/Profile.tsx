@@ -55,7 +55,6 @@ const Profile = () => {
                     setEmail(data.email);
                 }
             } catch(err) {
-                console.error(err);
             };
         }
 

@@ -42,7 +42,6 @@ const ForgetPassword = () => {
                 }
                 setLoading(false);
             } catch (err) {
-                console.log(err);
                 handleReset();
                 setAlert(["Something went wrong", false]);
             }
@@ -75,7 +74,6 @@ const ForgetPassword = () => {
                 }
                 setLoading(false);
             } catch (err) {
-                console.log(err);
                 handleReset();
                 setAlert(["Something went wrong", false]);
             }
