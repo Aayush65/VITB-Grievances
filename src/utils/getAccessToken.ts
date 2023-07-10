@@ -16,7 +16,6 @@ export async function getAccessToken() {
         const values = { name: data.name, regNo: data.regNo || "", empNo: data.empNo || "", isSuperUser: data.isSuperUser || false };
         return values;
     } catch (err: unknown) {
-        console.log(err);
         return null;
     }
 }
