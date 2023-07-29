@@ -1,4 +1,4 @@
-import { FormEvent, useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { context } from "../context";
 
@@ -86,8 +86,7 @@ const Login = () => {
         { name: "Password", value: pass, funct: setPass, placeholder: "Enter your Password" },
     ];
 
-    function handleSubmit(e: FormEvent) {
-        e.preventDefault();
+    function handleSubmit() {
         if (!username || !pass){
             setAlert("Please fill all the fields");
             return;
@@ -106,7 +105,7 @@ const Login = () => {
                 {alert}
                 <button className="font-black z-10" onClick={() => setAlert('')}>x</button>
             </div>
-            <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center bg-[#3A98B9] py-10 px-7 md:p-10 md:pb-7 gap-5 text-[#FFF1DC] rounded-3xl w-full md:w-auto">
+            <div className="flex flex-col justify-center items-center bg-[#3A98B9] py-10 px-7 md:p-10 md:pb-7 gap-5 text-[#FFF1DC] rounded-3xl w-full md:w-auto">
                 {loginDetails.map((detail, index) => (
                     <label key={index} className="flex flex-col gap-1 md:text-lg w-full">
                         {detail.name}
@@ -121,8 +120,8 @@ const Login = () => {
                     <button onClick={() => setIsTestLogin("user")} className="text-[13px] md:text-base flex justify-start hover:underline">Test User Login</button>
                     <button onClick={() => setIsTestLogin("admin")} className="text-[13px] md:text-base flex justify-start hover:underline">Test Admin Login</button>
                 </div>
-                <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>
-            </form>
+                <button type="submit" onClick={handleSubmit} className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>
+            </div>
         </div>
     ) : <Navigate to="/" />
 }
