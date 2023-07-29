@@ -25,10 +25,11 @@ const Grievances = () => {
     const [ complaints, setComplaints ] = useState<ComplaintType[]>([]);
     const [ activeComplaintIndex, setActiveComplaintIndex ] = useState<number>(-1);
     const [ changeStatus, setChangeStatus ] = useState<boolean>(false);
+    const [ complaintToDelete, setComplaintToDelete ] = useState<string>("");
     const [ body, setBody ] = useState<BodyType>({} as BodyType);
     const [ newRemark, setNewRemark ] = useState<string>('');
 
-    const { setName, setEmpNo, setRegNo, setIsSuperUser } = useContext(context);
+    const { setName, setEmpNo, setRegNo, isSuperUser, setIsSuperUser } = useContext(context);
 
     useEffect(() => {
         async function fetchData() {
@@ -57,10 +58,10 @@ const Grievances = () => {
             } catch(err) {
             };
         }
-        if (changeStatus)
+        if (complaints.length) 
             return;
         fetchData();
-    }, [changeStatus]);
+    }, [complaints]);
 
     useEffect(() => {
         async function sendChangeStatusRequest() {
@@ -91,6 +92,35 @@ const Grievances = () => {
         sendChangeStatusRequest();
     }, [changeStatus])
 
+    useEffect(() => {
+        async function sendDeleteRequest() {
+            try {
+                const headers = {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                    'Content-type': 'application/json; charset=UTF-8',
+                };
+                const response = await fetch(`https://grievance-server.aayush65.com/grievances/${complaintToDelete}`, { method: 'DELETE', headers });
+                const data = await response.json();
+                if (data.message && data.message === "Unauthorised Access") {
+                    const values = await getAccessToken();
+                    if (values) {
+                        setName(values.name);
+                        setEmpNo(values.empNo);
+                        setRegNo(values.regNo);
+                        setIsSuperUser(values.isSuperUser);
+                        sendDeleteRequest();
+                    }
+                    return;
+                }
+                handleReset();
+            } catch(error) {
+            }
+        }
+        if (!complaintToDelete)
+            return;
+        sendDeleteRequest();
+    }, [complaintToDelete])
+
     function handleActiveComplaints(index: number) {
         if (activeComplaintIndex === index)
             setActiveComplaintIndex(-1);
@@ -117,9 +147,11 @@ const Grievances = () => {
     }
 
     function handleReset() {
+        setComplaints([]);
         setChangeStatus(false);
         setBody({} as BodyType);
         setNewRemark('');
+        setComplaintToDelete('');
     }
 
     return (
@@ -164,6 +196,7 @@ const Grievances = () => {
                             <div className="flex items-center justify-center md:justify-end w-full gap-5 text-sm mt-3 md:text-base">
                                 <button onClick={() => addRemarks(complaint._id)} className="p-2 md:p-3 bg-[#3A98B9] text-[#FFF1DC] rounded-xl hover:scale-105 active:scale-110">Add Remarks</button>
                                 <button onClick={() => handleChangeStatus(complaint._id, "closed")} className="p-2 md:p-3 bg-[#3A98B9] text-[#FFF1DC] rounded-xl hover:scale-105 active:scale-110">Mark as Closed</button>
+                                <button onClick={() =>  setComplaintToDelete(complaint._id)} className={`${isSuperUser ? "" : "hidden"} p-2 md:p-3 bg-[#3A98B9] text-[#FFF1DC] rounded-xl hover:scale-105 active:scale-110`}>Delete Complaint</button>
                             </div>
                         </div>
                     </div>
