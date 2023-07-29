@@ -39,7 +39,7 @@ app.use(AuthMiddleware_1.AuthMiddleWare);
 app.get('/grievances', GrievancesControllers_1.getGrievancesController);
 app.post('/grievances', GrievancesControllers_2.postUserGrievancesController);
 app.post('/grievances/change-status/', GrievancesControllers_1.changeGrievanceStatusController),
-    app.delete('/grievances/:no', AuthControllers_1.deleteController);
+    app.delete('/grievances/:id', GrievancesControllers_1.deleteGrievanceController);
 app.get('/profile', getProfileDataController_1.default);
 app.post('/register-admins', AuthControllers_3.registerAdminController);
 app.post('/change-password', PasswordControllers_1.changePasswordController);

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changeGrievanceStatusController = exports.getGrievancesController = void 0;
+exports.deleteGrievanceController = exports.changeGrievanceStatusController = exports.getGrievancesController = void 0;
 const view_1 = require("../views/view");
 const GrievancesControllers_1 = require("./userControllers/GrievancesControllers");
 const GrievancesControllers_2 = require("./adminControllers/GrievancesControllers");
@@ -86,3 +86,31 @@ function changeGrievanceStatusController(req, res) {
     });
 }
 exports.changeGrievanceStatusController = changeGrievanceStatusController;
+function deleteGrievanceController(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            if (!res.locals.isSuperUser) {
+                (0, view_1.wrongCredentials)(res);
+                return;
+            }
+            const _id = req.params.id;
+            if (!_id) {
+                (0, view_1.badRequest)(res);
+                return;
+            }
+            const response = yield Grievance_1.default.findByIdAndDelete(_id);
+            if (!response) {
+                (0, view_1.notFound)(res);
+                return;
+            }
+            if (response.regNo) {
+                yield redisClient_1.redisClient.del(response.regNo);
+            }
+            (0, view_1.statusOkay)(res, { message: "Grievance deleted successfully" });
+        }
+        catch (err) {
+            (0, view_1.serverError)(res, err);
+        }
+    });
+}
+exports.deleteGrievanceController = deleteGrievanceController;

@@ -67,3 +67,29 @@ export async function changeGrievanceStatusController(req: Request, res: Respons
         serverError(res, err);
     }
 }
+
+
+export async function deleteGrievanceController(req: Request, res: Response) {
+    try {
+        if (!res.locals.isSuperUser) {
+            wrongCredentials(res);
+            return;
+        }
+        const _id = req.params.id;
+        if (!_id) {
+            badRequest(res);
+            return;
+        }
+        const response = await GrievanceModel.findByIdAndDelete(_id);
+        if (!response) {
+            notFound(res);
+            return;
+        }
+        if (response.regNo) {
+            await redisClient.del(response.regNo);
+        }
+        statusOkay(res, { message: "Grievance deleted successfully" });
+    } catch(err) {
+        serverError(res, err);
+    }
+}

@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import { Response } from 'express';
 import { AuthMiddleWare } from './middleware/AuthMiddleware';
-import { changeGrievanceStatusController, getGrievancesController } from './controllers/GrievancesControllers';
+import { changeGrievanceStatusController, deleteGrievanceController, getGrievancesController } from './controllers/GrievancesControllers';
 import { statusOkay } from './views/view';
 import { deleteController, issueToken, loginController } from './controllers/AuthControllers';
 import { postUserGrievancesController } from './controllers/userControllers/GrievancesControllers';
@@ -40,7 +40,7 @@ app.use(AuthMiddleWare);
 app.get('/grievances', getGrievancesController);
 app.post('/grievances', postUserGrievancesController);
 app.post('/grievances/change-status/', changeGrievanceStatusController),
-app.delete('/grievances/:no', deleteController);
+app.delete('/grievances/:id', deleteGrievanceController);
 
 app.get('/profile', getProfileDataController);
 app.post('/register-admins', registerAdminController);
