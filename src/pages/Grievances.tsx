@@ -28,6 +28,7 @@ const Grievances = () => {
     const [ complaintToDelete, setComplaintToDelete ] = useState<string>("");
     const [ body, setBody ] = useState<BodyType>({} as BodyType);
     const [ newRemark, setNewRemark ] = useState<string>('');
+    const [ showClosed, setShowClosed ] = useState<boolean>(true);
 
     const { setName, setEmpNo, setRegNo, isSuperUser, setIsSuperUser } = useContext(context);
 
@@ -156,14 +157,17 @@ const Grievances = () => {
 
     return (
         <div className="max-w-screen min-h-screen px-4 py-20 md:p-20 flex flex-col justify-center items-center">
-            <h1 className="p-5 md:p-10 text-xl md:text-2xl font-semibold">{
+            <h1 className="mt-5 md:mt-10 mb-3 md:mb-6 p-2 text-xl md:text-2xl font-semibold">{
                 complaints.length && complaints[0]._id === '0' ? "You have no complaints" : 
                 complaints.length ? "Your complaints" : 
                 <div className="flex gap-3"><LoadingSpinner />Loading...</div> 
             }</h1>
+            <div className="w-full md:w-4/5 lg:w-2/3 flex justify-end mb-3 md:mb-5">
+                <button className={`${complaints.length ? "" : "hidden"} p-2 md:p-3 bg-[#3A98B9] text-[#FFF1DC] rounded-xl hover:scale-105 active:scale-110 text-sm md:text-base`} onClick={() => setShowClosed(!showClosed)} >{showClosed ? "Hide Closed" : "Show Closed"}</button>
+            </div>
             <div className="w-full md:w-4/5 lg:w-2/3">
                 {complaints.map((complaint, index) => (
-                    <div key={index} className="flex flex-col" >
+                    <div key={index} className={`${complaint.status === "closed" && !showClosed ? "hidden" : ""} flex flex-col`} >
                         <div className={`flex items-center justify-around p-2 md:p-4 border-black border-2 rounded-xl text-sm md:text-base cursor-pointer ${complaint._id === '0' ? "hidden": ""} ${activeComplaintIndex === index ? "bg-[#bbd8e2]": "" }`} onClick={() => handleActiveComplaints(index)} >
                             <div className={`w-[20%] truncate text-ellipsis`}>{complaint._id}</div>
                             <div className={`w-[40%] truncate text-ellipsis`}>{complaint.subject}</div>
