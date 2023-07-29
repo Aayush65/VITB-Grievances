@@ -6,6 +6,7 @@ const Login = () => {
     const [pass, setPass] = useState("");
     const [isSubmit, setIsSubmit] = useState(false);
     const [username, setUsername] = useState("");
+    const [isTestLogin, setIsTestLogin] = useState('');
 
     const [alert, setAlert] = useState<string>("");
 
@@ -56,6 +57,30 @@ const Login = () => {
         setTimeout(() => setAlert(''), alert.length * 100);
     }, [alert])
 
+    // setting variables for test login
+    useEffect(() => {
+        if (!isTestLogin)
+            return;
+        if (isTestLogin === "user") {
+            setUsername("20BCE00000");
+            setPass("testuserpass");
+        } else if (isTestLogin === "admin") {
+            setUsername("100000");
+            setPass("testadminpass");
+        }
+    }, [isTestLogin])
+
+    // confirming test variables
+    useEffect(() => {
+        if (!isTestLogin)
+            return;
+        if (username !== "20BCE00000" && username !== "100000")
+            return;
+        if (pass !== "testuserpass" && pass !== "testadminpass")
+            return;
+        setIsSubmit(true);
+    }, [username, pass])
+
     const loginDetails = [
         { name: " Registration/Employee Number", value: username, funct: setUsername, placeholder: "Enter your Registration/Employee No" },
         { name: "Password", value: pass, funct: setPass, placeholder: "Enter your Password" },
@@ -92,6 +117,10 @@ const Login = () => {
                         </div>
                     </label>
                 ))}
+                <div className="flex flex-col justify-start gap-1 self-start">
+                    <button onClick={() => setIsTestLogin("user")} className="text-[13px] md:text-base flex justify-start hover:underline">Test User Login</button>
+                    <button onClick={() => setIsTestLogin("admin")} className="text-[13px] md:text-base flex justify-start hover:underline">Test Admin Login</button>
+                </div>
                 <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg active:scale-105">Submit</button>
             </form>
         </div>
