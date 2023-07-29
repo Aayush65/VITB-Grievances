@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
-import { AnonymousComplaint, AdminNavbar, Navbar, OngoingGrievances, SubmitGrievance, Grievances, AddFaculty, RemoveUsers } from "./components";
+import { AnonymousComplaint, OngoingGrievances, SubmitGrievance, Grievances, AddFaculty, RemoveUsers } from "./pages";
+import { AdminNavbar, Navbar } from "./components";
 import { context } from "./context";
 import { Navigate } from "react-router-dom";
 import { getAccessToken } from "./utils/getAccessToken";

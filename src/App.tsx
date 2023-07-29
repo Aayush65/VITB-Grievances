@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainSite from "./MainSite";
-import { Login, Register, ServerError, NonExistant, ChangePassword, Profile, ForgetPassword, LoadingSpinner } from "./components";
+import { LoadingSpinner } from "./components";
+import { Login, Register, ServerError, NonExistant, ChangePassword, Profile, ForgetPassword } from "./pages";
 import { useState, useEffect } from "react";
 
 function App() {

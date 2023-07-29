@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { getAccessToken } from "../utils/getAccessToken";
 import { context } from "../context";
 import { dropdown } from "../assets";
-import LoadingSpinner from "./LoadingSpinner";
+import { LoadingSpinner } from "../components";
+
 
 interface complaintType {
     _id: string;

@@ -1,7 +1,7 @@
 import { FormEvent, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { getAccessToken } from "../utils/getAccessToken";
-import { AdminNavbar, Navbar } from ".";
+import { AdminNavbar, Navbar } from "../components";
 import { context } from "../context";
 
 const ChangePassword = () => {

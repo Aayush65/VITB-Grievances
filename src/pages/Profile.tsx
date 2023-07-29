@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { context } from "../context";
-import { AdminNavbar, Navbar } from ".";
+import { AdminNavbar, Navbar } from "../components";
 import { user } from "../assets";
 import { getAccessToken } from "../utils/getAccessToken";
 

@@ -1,10 +1,11 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { getAccessToken } from "../utils/getAccessToken";
-import TagsAutoComplete from "./TagsAutocomplete";
 import { tags } from "../constants";
 import { context } from "../context";
+import TagsAutoComplete from "../components/TagsAutocomplete";
 
-const SubmitGrievance = () => {
+
+const AnonymousComplaint = () => {
     const [subject, setSubject] = useState<string>("");
     const [complaint, setComplaint] = useState<string>("");
     const [relatedDepts, setRelatedDepts] = useState<string[]>([]);
@@ -22,8 +23,8 @@ const SubmitGrievance = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const body = JSON.stringify({ subject, complaint, relatedDepts, isAnonymous: false });
-                const response = await fetch(`https://grievance-server.aayush65.com/grievances`, { method: 'POST', headers, body })
+                const body = JSON.stringify({ subject, complaint, relatedDepts, isAnonymous: true });
+                const response = await fetch(`https://grievance-server.aayush65.com/grievances/`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();
@@ -36,11 +37,10 @@ const SubmitGrievance = () => {
                     }
                     return;
                 } else if (data) {
-                    setAlert(["Complaint Registered Successfully", true])
+                    setAlert(["Anonymous Complaint Successful", true])
                     handleReset();
                 }
             } catch(err) {
-                setAlert(["Error in submitting complaint", false]);
             };
         }
         if (!isDataValid)
@@ -81,7 +81,7 @@ const SubmitGrievance = () => {
                 {alert[0]}
                 <button className="font-black z-10" onClick={() => setAlert(['', false])}>x</button>
             </div>
-            <h1 className="p-10 text-xl md:text-2xl font-semibold">What's bothering you?</h1>
+            <h1 className="p-10 text-xl md:text-2xl font-semibold">Wanna tell us your Secret?</h1>
             <form onSubmit={handleSubmit} className="flex flex-col justify-start bg-[#3A98B9] px-5 py-7 md:p-10 md:pb-7 gap-5 text-[#FFF1DC] rounded-3xl w-full md:w-auto">
                 <label className="flex gap-4 items-center text-sm md:text-base">
                     Subject 
@@ -90,7 +90,7 @@ const SubmitGrievance = () => {
                 <TagsAutoComplete name="Related Departments" state={relatedDepts} setState={setRelatedDepts} tags={tags}/>
                 <label className="flex flex-col gap-2 text-sm md:text-base">
                     Describe your Issue
-                    <textarea className="w-full md:w-[600px] h-[200px] text-black p-2 md:p-3 rounded-xl" placeholder="Write about your complaint here..." onChange={(e) => setComplaint(e.target.value)} value={complaint} />
+                    <textarea className="w-full md:w-[600px] h-[200px] text-black p-2 md:p-3 rounded-xl" placeholder="Write about your issue/suggestion here..." onChange={(e) => setComplaint(e.target.value)} value={complaint} />
                 </label>
                 <button type="submit" className="bg-gray-700 p-3 px-4 rounded-xl md:text-lg self-center active:scale-105">Submit</button>
             </form>
@@ -98,4 +98,4 @@ const SubmitGrievance = () => {
     )
 }
 
-export default SubmitGrievance;
+export default AnonymousComplaint;

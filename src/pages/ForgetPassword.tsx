@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { context } from "../context";
-import { AdminNavbar, Navbar } from ".";
+import { AdminNavbar, Navbar } from "../components";
 
 
 const ForgetPassword = () => {

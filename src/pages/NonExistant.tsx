@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AdminNavbar, Navbar } from ".";
+import { AdminNavbar, Navbar } from "../components";
 import { error404 } from "../assets";
 import { context } from "../context";
 
