@@ -46,6 +46,10 @@ To deploy this project run
   npm install
   npm run dev
 ```
+
+## Performance
+![Lighthouse score](https://github.com/Aayush65/Grievance-Portal/assets/79572409/55b58564-de4b-4910-9d6f-6dcb299a6a3a)
+
 ## Demo
 
 This site is hosted on [vitb-grievances.aayush65.com](https://vitb-grievances.aayush65.com).
