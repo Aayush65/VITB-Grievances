@@ -21,9 +21,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 // Uncomment in the final commit
-app.use(cors({
-    origin: "https://vitb-grievances.aayush65.com/"
-}));
+// app.use(cors({
+//     origin: "https://vitb-grievances.aayush65.com/"
+// }));
 app.use(compression({ level: 6, threshold: 1024 }));
 
 

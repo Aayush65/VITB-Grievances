@@ -24,9 +24,9 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 // Uncomment in the final commit
-app.use((0, cors_1.default)({
-    origin: "https://vitb-grievances.aayush65.com/"
-}));
+// app.use(cors({
+//     origin: "https://vitb-grievances.aayush65.com/"
+// }));
 app.use((0, compression_1.default)({ level: 6, threshold: 1024 }));
 app.get('/ping', (_, res) => (0, view_1.statusOkay)(res, { message: "Server Running" }));
 app.get('/accesstoken', AuthControllers_1.issueToken);
