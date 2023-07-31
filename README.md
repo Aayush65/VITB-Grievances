@@ -74,7 +74,9 @@ After deploying this server, deploy the frontend from [here](https://github.com/
 
 This site is hosted on [vitb-grievances.aayush65.com](https://vitb-grievances.aayush65.com).
 
+**Demo Video**:
 
+https://github.com/Aayush65/Grievance-Portal/assets/79572409/85a3485b-2fb6-4218-a33f-1cd27078b0b1
 
 ## Authors
 
