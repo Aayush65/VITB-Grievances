@@ -1,4 +1,4 @@
-export const firstLoadComment = "The first loading may take some due to free hosting";
+export const firstLoadComment = "The first loading may take some time due to free hosting";
 
 fetch("https://grievance-server.aayush65.com/tags")
     .then(response => response.json())
