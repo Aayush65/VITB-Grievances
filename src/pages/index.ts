@@ -8,6 +8,7 @@ import AnonymousComplaint from "./AnonymousComplaint";
 import ChangePassword from "./ChangePassword";
 import Grievances from "./Grievances";
 import ForgetPassword from "./ForgetPassword";
+import FirstLoad from "./FirstLoad";
 import Profile from "./Profile";
 import AddFaculty from "./AddFaculty";
 import RemoveUsers from "./RemoveUsers";
@@ -25,5 +26,6 @@ export {
     Grievances,
     ChangePassword,
     ForgetPassword,
+    FirstLoad,
     Profile,
 }

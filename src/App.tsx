@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainSite from "./MainSite";
-import { LoadingSpinner } from "./components";
-import { Login, Register, ServerError, NonExistant, ChangePassword, Profile, ForgetPassword } from "./pages";
+import { Login, Register, ServerError, NonExistant, ChangePassword, Profile, ForgetPassword, FirstLoad } from "./pages";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -45,7 +44,7 @@ function App() {
 				<Route path="/*" element={<NonExistant />} />
 			</Routes>
 		</Router>
-	) : isTimeout ? <ServerError /> : <div className="w-screen h-screen flex justify-center items-center p-5 md:p-10 text-xl md:text-2xl font-semibold gap-3"><LoadingSpinner />Loading...</div>
+	) : isTimeout ? <ServerError /> : <FirstLoad />
 }
 
 export default App

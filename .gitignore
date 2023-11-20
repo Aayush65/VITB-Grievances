@@ -13,6 +13,7 @@ dist-ssr
 *.local
 .env
 Lighthouse score.png
+VITB Grievance Portal.mp4
 
 # Editor directories and files
 .vscode
