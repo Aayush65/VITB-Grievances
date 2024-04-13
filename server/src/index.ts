@@ -26,6 +26,7 @@ app.use(cors());
 // }));
 app.use(compression({ level: 6, threshold: 1024 }));
 
+app.get('/', (_, res: Response) => statusOkay(res, {message: "Welcome to VITB Grienvances"}));
 
 app.get('/ping', (_, res: Response) => statusOkay(res, {message: "Server Running"}));
 app.get('/accesstoken', issueToken);
