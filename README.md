@@ -1,11 +1,9 @@
+# VITB Grievance Portal
 
-# VITB Grievance Server
-
-This is the repository for the backend server for the hosted VITB Grievance Portal. This server is hosted on Railway.
-
-**VITB Grievance Portal** is a web-portal, providing students with a dedicated platform to raise concerns, address issues, and seek clarification from the college administration and authorities. The portal includes separate pages for students, teachers, and administrators.
+A Web-Portal, providing students with a dedicated platform to raise concerns, address issues, and seek clarification from the college administration and authorities. The portal includes separate pages for students, teachers, and administrators.
 
 You can experience this site [here](vitb-grievances.aayush65.com).
+
 ## Features
 
 Some of our key feature includes:
@@ -16,6 +14,14 @@ Some of our key feature includes:
 - Email alerts for status changes
 - 2-factor authentication
 - Real-time updates for status and remarks
+
+## Tech Stack (Frontend)
+
+- ReactJS
+- TypeScript
+- Tailwind
+- JWT
+
 ## Tech Stack (Backend)
 
 - NodeJS
@@ -24,12 +30,10 @@ Some of our key feature includes:
 - JWT
 - MongoDB
 - Redis
-## Frontend
 
-The frontend for our Grievance Server is hosted on Github Pages. The repository for the server is [here](https://github.com/Aayush65/grievance-portal).
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run the server, you will need to add the environment variables to your .env file as shown in .env.example
 
 **MongoDB Atlas**:
 
@@ -49,13 +53,14 @@ To run this project, you will need to add the following environment variables to
 `REDIS_PORT`
 `REDIS_PASSWORD`
 `REDIS_USERNAME`
+
 ## Deployment
 
-Before deploying the frontend, clone this project on your local machine by running the following command:
+First clone this project on your local machine by running the following command:
 
 ```bash
-  git clone https://github.com/Aayush65/grievance-server
-  cd grievance-server
+  git clone https://github.com/Aayush65/VITB-Grievances
+  cd VITB-Grievances
 ```
 
 To deploy this server run
@@ -65,7 +70,16 @@ To deploy this server run
   npm run dev
 ```
 
-After deploying this server, deploy the frontend from [here](https://github.com/Aayush65/grievance-server).
+Now before deploying the frontend, set the `serverURL` to `localhost:${PORT_NUMBER}` in `client\constants\index.ts`:
+
+To deploy the frontend run
+
+```bash
+  cd client
+  npm install
+  npm run dev
+```
+
 ## Performance
 
 ![Lighthouse score](https://github.com/Aayush65/Grievance-Portal/assets/79572409/55b58564-de4b-4910-9d6f-6dcb299a6a3a)
@@ -82,4 +96,3 @@ https://github.com/Aayush65/Grievance-Portal/assets/79572409/85a3485b-2fb6-4218-
 
 - [@Aayush65](https://www.github.com/Aayush65)
 - [@VaibhavSr007](https://www.github.com/VaibhavSr007)
-
