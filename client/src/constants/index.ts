@@ -1,6 +1,8 @@
 export const firstLoadComment = "The first loading may take some time due to free hosting";
 
-fetch("https://grievance-server.aayush65.com/tags")
+export const serverURL = "https://grievance-server.aayush65.com"
+
+fetch(`${serverURL}/tags`)
     .then(response => response.json())
     .then(data => {tags = data;})
     .catch();

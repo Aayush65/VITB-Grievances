@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
+import { serverURL } from "../constants";
 
 
 const Register = () => {
@@ -20,7 +21,7 @@ const Register = () => {
         if (!isDataValid)
             return;
         setIsDataValid(false);
-        fetch('https://grievance-server.aayush65.com/register', {
+        fetch(`${serverURL}/register`, {
             method: 'POST',
             body: JSON.stringify({ name, regNo, year, email, pass }),
             headers: {

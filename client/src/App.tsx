@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainSite from "./MainSite";
 import { Login, Register, ServerError, NonExistant, ChangePassword, Profile, ForgetPassword, FirstLoad } from "./pages";
 import { useState, useEffect } from "react";
+import { serverURL } from "./constants";
 
 function App() {
 	const [ isServerActive, setIsServerActive ] = useState(false);
@@ -10,7 +11,7 @@ function App() {
 	useEffect(() => {
 		async function ping() {
 			try {
-				await fetch("https://grievance-server.aayush65.com/ping", { method: 'get' });
+				await fetch(`${serverURL}/ping`, { method: 'get' });
 				setIsServerActive(true);
 				return true;
 			} catch (error) {

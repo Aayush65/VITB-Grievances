@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
+import { serverURL } from "../constants";
 
 
 const RemoveUsers = () => {
@@ -16,7 +17,7 @@ const RemoveUsers = () => {
                 'Content-type': 'application/json; charset=UTF-8',
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             };
-            const response = await fetch(`https://grievance-server.aayush65.com/delete/${userno}`, { method: "DELETE", headers });
+            const response = await fetch(`${serverURL}/delete/${userno}`, { method: "DELETE", headers });
             const data = await response.json();
             if (data && (data.message === "User Deleted Successfully" || data.message === "Admin Deleted Successfully" ))
                 setAlert([data.message, true]);

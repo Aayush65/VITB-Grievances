@@ -3,6 +3,7 @@ import { context } from "../context";
 import { AdminNavbar, Navbar } from "../components";
 import { user } from "../assets";
 import { getAccessToken } from "../utils/getAccessToken";
+import { serverURL } from "../constants";
 
 const Profile = () => {
     
@@ -35,7 +36,7 @@ const Profile = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const response = await fetch(`https://grievance-server.aayush65.com/profile`, { method: 'GET', headers})
+                const response = await fetch(`${serverURL}/profile`, { method: 'GET', headers})
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();

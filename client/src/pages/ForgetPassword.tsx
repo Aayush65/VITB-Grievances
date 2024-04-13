@@ -2,6 +2,7 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { context } from "../context";
 import { AdminNavbar, Navbar } from "../components";
+import { serverURL } from "../constants";
 
 
 const ForgetPassword = () => {
@@ -28,7 +29,7 @@ const ForgetPassword = () => {
                 const headers = {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const response = await fetch(`https://grievance-server.aayush65.com/forget-password/${userNum}`, { method: 'GET', headers })
+                const response = await fetch(`${serverURL}/forget-password/${userNum}`, { method: 'GET', headers })
                 const data = await response.json();
                 if (data.message === "OTP Sent Successfully"){
                     setAlert([data.message, true]);
@@ -60,7 +61,7 @@ const ForgetPassword = () => {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
                 const body = JSON.stringify({ otp, userNum, newPass })
-                const response = await fetch(`https://grievance-server.aayush65.com/otp-check/`, { method: 'POST', headers, body })
+                const response = await fetch(`${serverURL}/otp-check/`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message === "Password Changed Successfully"){
                     setAlert([data.message, true]);

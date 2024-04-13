@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
+import { serverURL } from "../constants";
 
 
 const AddFaculty = () => {
@@ -22,7 +23,7 @@ const AddFaculty = () => {
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             };
             const body = JSON.stringify({ name, empNo, dept, email, pass, isSuperUser });
-            const response = await fetch('https://grievance-server.aayush65.com/register-admins', { method: "POST", headers, body });
+            const response = await fetch(`${serverURL}/register-admins`, { method: "POST", headers, body });
             const data = await response.json();
             if (data && data.message === "Admin Added Successfully")
                 setAlert([data.message, true]);

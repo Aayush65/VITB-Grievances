@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getAccessToken } from "../utils/getAccessToken";
 import { AdminNavbar, Navbar } from "../components";
 import { context } from "../context";
+import { serverURL } from "../constants";
 
 const ChangePassword = () => {
     const [pass, setPass] = useState("");
@@ -28,7 +29,7 @@ const ChangePassword = () => {
                 } else {
                     body = JSON.stringify({ empNo, pass, newPass })
                 }
-                const response = await fetch(`https://grievance-server.aayush65.com/change-password`, { method: 'POST', headers, body })
+                const response = await fetch(`${serverURL}/change-password`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     if (await getAccessToken())

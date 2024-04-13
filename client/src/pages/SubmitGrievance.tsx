@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { getAccessToken } from "../utils/getAccessToken";
-import { tags } from "../constants";
+import { serverURL, tags } from "../constants";
 import { context } from "../context";
 import TagsAutoComplete from "../components/TagsAutocomplete";
 
@@ -23,7 +23,7 @@ const SubmitGrievance = () => {
                     'Content-type': 'application/json; charset=UTF-8',
                 }
                 const body = JSON.stringify({ subject, complaint, relatedDepts, isAnonymous: false });
-                const response = await fetch(`https://grievance-server.aayush65.com/grievances`, { method: 'POST', headers, body })
+                const response = await fetch(`${serverURL}/grievances`, { method: 'POST', headers, body })
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();

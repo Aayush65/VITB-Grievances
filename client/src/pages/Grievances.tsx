@@ -3,6 +3,7 @@ import { getAccessToken } from "../utils/getAccessToken";
 import { context } from "../context";
 import { dropdown } from "../assets";
 import { LoadingSpinner } from "../components";
+import { serverURL } from "../constants";
 
 
 interface ComplaintType {
@@ -39,7 +40,7 @@ const Grievances = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 }
-                const response = await fetch(`https://grievance-server.aayush65.com/grievances`, { method: 'GET', headers});
+                const response = await fetch(`${serverURL}/grievances`, { method: 'GET', headers});
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();
@@ -71,7 +72,7 @@ const Grievances = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 };
-                const response = await fetch(`https://grievance-server.aayush65.com/grievances/change-status`, { method: 'POST', headers, body: JSON.stringify(body) });
+                const response = await fetch(`${serverURL}/grievances/change-status`, { method: 'POST', headers, body: JSON.stringify(body) });
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();
@@ -100,7 +101,7 @@ const Grievances = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-type': 'application/json; charset=UTF-8',
                 };
-                const response = await fetch(`https://grievance-server.aayush65.com/grievances/${complaintToDelete}`, { method: 'DELETE', headers });
+                const response = await fetch(`${serverURL}/grievances/${complaintToDelete}`, { method: 'DELETE', headers });
                 const data = await response.json();
                 if (data.message && data.message === "Unauthorised Access") {
                     const values = await getAccessToken();

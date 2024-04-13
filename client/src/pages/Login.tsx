@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { context } from "../context";
+import { serverURL } from "../constants";
 
 const Login = () => {
     const [pass, setPass] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
     useEffect(() => {
         if (!isSubmit)
             return;
-        fetch("https://grievance-server.aayush65.com/login", {
+        fetch(`${serverURL}/login`, {
             method: 'POST',
             body: username.toLowerCase() === username.toUpperCase() ? JSON.stringify({ empNo: username, pass }) : JSON.stringify({ regNo: username, pass }),
             headers: {
